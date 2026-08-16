@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 19 DOM Exercises</title>
+
+    <style>
+        .highlight {
+            color: blue;
+            background-color: lightyellow;
+            padding: 10px;
+        }
+
+        .box {
+            border: 2px solid black;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        li {
+            margin: 8px 0;
+        }
+
+        button {
+            margin-left: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1 id="title">Original Heading</h1>
+
+    <hr>
+
+    <h2>Ethiopian Cities</h2>
+    <ul id="city-list"></ul>
+
+    <hr>
+
+    <h2>Event Bubbling</h2>
+
+    <div id="button-container" class="box">
+        <button id="my-button">Click Me</button>
+    </div>
+
+    <hr>
+
+    <h2>Delete Items</h2>
+
+    <ul id="item-list">
+        <li>
+            Apple
+            <button class="delete-btn">Delete</button>
+        </li>
+
+        <li>
+            Banana
+            <button class="delete-btn">Delete</button>
+        </li>
+
+        <li>
+            Orange
+            <button class="delete-btn">Delete</button>
+        </li>
+    </ul>
+
+    <hr>
+
+    <h2>Add an Item</h2>
+
+    <form id="item-form">
+        <input
+            type="text"
+            id="item-input"
+            placeholder="Enter an item"
+        >
+
+        <button type="submit">Add Item</button>
+    </form>
+
+    <ul id="form-list"></ul>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
