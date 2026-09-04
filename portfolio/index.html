@@ -112,99 +112,172 @@
       <section class="section-shell" id="projects">
         <div class="section-heading">
           <span class="section-kicker">Featured Work</span>
-          <h2>Projects</h2>
-          <p>A showcase of AI, machine learning, backend, and full-stack projects.</p>
+          <h2>Projects & Portfolio</h2>
+          <p>A showcase of AI & Machine Learning models, Full-Stack web applications, and interactive software solutions.</p>
+
+          <!-- Category Filter Buttons -->
+          <div class="project-filters" aria-label="Filter projects">
+            <button class="filter-btn active" data-filter="all">All Projects</button>
+            <button class="filter-btn" data-filter="fullstack">Full-Stack & Web</button>
+            <button class="filter-btn" data-filter="ai">AI & Machine Learning</button>
+          </div>
         </div>
 
         <div class="project-grid">
-          <article class="project-card">
-            <div class="project-image project-eight"></div>
+          <!-- 1. Aguka-Med -->
+          <article class="project-card" data-category="ai">
+            <div class="project-image project-eight">
+              <span class="status-badge live">● Live Demo</span>
+            </div>
             <div class="project-content">
+              <div class="project-tags">
+                <span>AI Healthcare</span>
+                <span>Python</span>
+                <span>NLP</span>
+              </div>
               <h3>Aguka-Med</h3>
-              <p>AgukaMed is an AI-powered platform that helps people verify if medicines and health products are real, safe, and not fake by scanning labels, checking product information, and giving simple guidance in local language (Kinyarwanda).</p>
+              <p>AI-powered platform that helps verify if medicines and health products are safe and genuine using label scanning and local language guidance.</p>
               <div class="project-links">
-                <a href="https://claude-hack-1.onrender.com/">Live Demo</a>
-                <a href="https://github.com/ShaneseEm/Claude-hack">Code</a>
+                <a href="https://claude-hack-1.onrender.com/" target="_blank" rel="noreferrer">🚀 Live Demo</a>
+                <a href="https://github.com/ShaneseEm/Claude-hack" target="_blank" rel="noreferrer">🐙 Code</a>
               </div>
             </div>
-          <article class="project-card">
-            <div class="project-image project-seven"></div>
+          </article>
+
+          <!-- 2. Tetris JS -->
+          <article class="project-card" data-category="fullstack">
+            <div class="project-image project-seven">
+              <span class="status-badge live">● Live Demo</span>
+            </div>
             <div class="project-content">
+              <div class="project-tags">
+                <span>JavaScript</span>
+                <span>Glassmorphism</span>
+                <span>Game Dev</span>
+              </div>
               <h3>Tetris JS</h3>
-              <p>A polished web-based Tetris game with glassmorphism UI, responsive layout, and modern animations.</p>
+              <p>A web-based Tetris game with smooth glassmorphism UI, responsive layout, interactive controls, and modern animations.</p>
               <div class="project-links">
-                <a href="https://tetris-js-eight.vercel.app/">Live Demo</a>
-                <a href="https://github.com/bethelhem-dev/tetris-js">Code</a>
+                <a href="https://tetris-js-eight.vercel.app/" target="_blank" rel="noreferrer">🚀 Live Demo</a>
+                <a href="https://github.com/bethelhem-dev/tetris-js" target="_blank" rel="noreferrer">🐙 Code</a>
               </div>
             </div>
           </article>
 
-
-          <article class="project-card">
-            <div class="project-image project-one"></div>
+          <!-- 3. Bens -->
+          <article class="project-card" data-category="fullstack">
+            <div class="project-image project-one">
+              <span class="status-badge live">● Live Demo</span>
+            </div>
             <div class="project-content">
-              <h3>Bens</h3>
-              <p>A deployed web project with a clean interface and production hosting on Vercel.</p>
+              <div class="project-tags">
+                <span>Web App</span>
+                <span>React</span>
+                <span>Vercel</span>
+              </div>
+              <h3>Bens Platform</h3>
+              <p>A deployed web project featuring a responsive user interface, real-time data integration, and cloud production hosting.</p>
               <div class="project-links">
-                <a href="https://bens-ochre.vercel.app/">Live Demo</a>
-                <a href="https://github.com/ShaneseEm/Bens">Code</a>
+                <a href="https://bens-ochre.vercel.app/" target="_blank" rel="noreferrer">🚀 Live Demo</a>
+                <a href="https://github.com/ShaneseEm/Bens" target="_blank" rel="noreferrer">🐙 Code</a>
               </div>
             </div>
           </article>
 
-          <article class="project-card">
-            <div class="project-image project-two"></div>
+          <!-- 4. Academic Grading System -->
+          <article class="project-card" data-category="fullstack">
+            <div class="project-image project-two">
+              <span class="status-badge live">● Live Demo</span>
+            </div>
             <div class="project-content">
+              <div class="project-tags">
+                <span>EdTech</span>
+                <span>Backend</span>
+                <span>Node.js</span>
+              </div>
               <h3>Grading System</h3>
-              <p>A deployed grading platform for managing academic assessment workflows.</p>
+              <p>A deployed academic platform designed to streamline student assessments, evaluation workflows, and grade reporting.</p>
               <div class="project-links">
-                <a href="https://grading-system-1-005i.onrender.com/">Live Demo</a>
-                <a href="https://github.com/ShaneseEm/grading-system">Code</a>
+                <a href="https://grading-system-1-005i.onrender.com/" target="_blank" rel="noreferrer">🚀 Live Demo</a>
+                <a href="https://github.com/ShaneseEm/grading-system" target="_blank" rel="noreferrer">🐙 Code</a>
               </div>
             </div>
           </article>
 
-          <article class="project-card">
-            <div class="project-image project-three"></div>
+          <!-- 5. FaceAuth AI -->
+          <article class="project-card" data-category="ai">
+            <div class="project-image project-three">
+              <span class="status-badge live">● Live Demo</span>
+            </div>
             <div class="project-content">
+              <div class="project-tags">
+                <span>AI Auth</span>
+                <span>ArcFace</span>
+                <span>Computer Vision</span>
+              </div>
               <h3>FaceAuth AI</h3>
-              <p>An AI-powered face authentication system that uses live webcam registration, ArcFace embeddings, and cosine similarity login verification.</p>
+              <p>AI-powered face authentication system utilizing live webcam registration, ArcFace embeddings, and cosine similarity verification.</p>
               <div class="project-links">
-                <a href="https://gdg-ml-group-7-w8pz.vercel.app/">Live Demo</a>
-                <a href="https://github.com/ShaneseEm/GDG_ML_Group-7">Code</a>
+                <a href="https://gdg-ml-group-7-w8pz.vercel.app/" target="_blank" rel="noreferrer">🚀 Live Demo</a>
+                <a href="https://github.com/ShaneseEm/GDG_ML_Group-7" target="_blank" rel="noreferrer">🐙 Code</a>
               </div>
             </div>
           </article>
 
-          <article class="project-card">
-            <div class="project-image project-four"></div>
+          <!-- 6. wav2vec2 XLSR -->
+          <article class="project-card" data-category="ai">
+            <div class="project-image project-four">
+              <span class="status-badge repo">💻 GitHub Repo</span>
+            </div>
             <div class="project-content">
-              <h3>wav2vec2 XLSR</h3>
-              <p>A speech and audio machine learning experiment using the wav2vec2 XLSR model.</p>
+              <div class="project-tags">
+                <span>Audio ML</span>
+                <span>PyTorch</span>
+                <span>Transformers</span>
+              </div>
+              <h3>wav2vec2 XLSR Speech Model</h3>
+              <p>Speech and audio machine learning experiment using the pre-trained wav2vec2 XLSR acoustic model for multi-lingual speech processing.</p>
               <div class="project-links">
-                <a href="https://github.com/ShaneseEm/wav2vec2-xlsr">Code</a>
+                <a href="https://github.com/ShaneseEm/wav2vec2-xlsr" target="_blank" rel="noreferrer">🐙 Code Repo</a>
               </div>
             </div>
           </article>
 
-          <article class="project-card">
-            <div class="project-image project-five"></div>
+          <!-- 7. Ride Price ML -->
+          <article class="project-card" data-category="ai">
+            <div class="project-image project-five">
+              <span class="status-badge repo">💻 GitHub Repo</span>
+            </div>
             <div class="project-content">
+              <div class="project-tags">
+                <span>Machine Learning</span>
+                <span>Scikit-Learn</span>
+                <span>Python</span>
+              </div>
               <h3>Ride Price ML</h3>
-              <p>A machine learning project focused on predicting ride prices from trip data.</p>
+              <p>Predictive machine learning project estimating urban ride fare prices from historical trip datasets and distance metrics.</p>
               <div class="project-links">
-                <a href="https://github.com/ShaneseEm/ride-price-ml">Code</a>
+                <a href="https://github.com/ShaneseEm/ride-price-ml" target="_blank" rel="noreferrer">🐙 Code Repo</a>
               </div>
             </div>
           </article>
 
-          <article class="project-card">
-            <div class="project-image project-six"></div>
+          <!-- 8. MERN Chat App -->
+          <article class="project-card" data-category="fullstack">
+            <div class="project-image project-six">
+              <span class="status-badge repo">💻 GitHub Repo</span>
+            </div>
             <div class="project-content">
+              <div class="project-tags">
+                <span>MongoDB</span>
+                <span>Express</span>
+                <span>React</span>
+                <span>Node.js</span>
+              </div>
               <h3>MERN Chat App</h3>
-              <p>A full-stack chat application built with the MERN stack and real-time app patterns.</p>
+              <p>Full-stack instant messaging application with user authentication, real-time messaging, and database persistence.</p>
               <div class="project-links">
-                <a href="https://github.com/ShaneseEm/MERN-ChatAPP">Code</a>
+                <a href="https://github.com/ShaneseEm/MERN-ChatAPP" target="_blank" rel="noreferrer">🐙 Code Repo</a>
               </div>
             </div>
           </article>

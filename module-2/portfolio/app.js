@@ -329,3 +329,30 @@ if (canvas) {
   }
   animate();
 }
+
+/* ══════════════════════════════════════
+   PROJECT CATEGORY FILTERING
+══════════════════════════════════════ */
+const filterBtns = document.querySelectorAll('.filter-btn');
+const projectCards = document.querySelectorAll('.project-card');
+
+if (filterBtns.length > 0) {
+  filterBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach((b) => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const filter = btn.dataset.filter;
+      projectCards.forEach((card) => {
+        if (filter === 'all' || card.dataset.category === filter) {
+          card.style.display = 'flex';
+          card.style.opacity = '0';
+          setTimeout(() => { card.style.opacity = '1'; }, 50);
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+}
+
