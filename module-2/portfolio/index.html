@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bethelhem Alemayehu | Software Engineering Portfolio</title>
+    <meta
+      name="description"
+          content="Bethelhem Alemayehu's software engineering, AI, and web development portfolio."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@0.164.1/build/three.module.js"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="logo" href="#home" aria-label="Go to home">
+        <span aria-hidden="true">🦋</span>
+        Shanese
+      </a>
+
+      <nav class="nav-pill" aria-label="Primary navigation">
+        <a class="active" href="#home">Home</a>
+        <a href="#about">About Me</a>
+        <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
+        <a href="#services">Services</a>
+        <a href="#education">Education</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <button class="theme-toggle" type="button" aria-label="Toggle dark mode">
+        <span aria-hidden="true">☾</span>
+      </button>
+    </header>
+
+    <main>
+      <section class="hero section-shell" id="home">
+        <div class="hero-copy">
+          <span class="tiny-star" aria-hidden="true">✧</span>
+          <h1>Bethelhem Alemayehu</h1>
+          <div class="title-line" aria-hidden="true"></div>
+          <p class="hero-lead">
+            Developing responsive and scalable web applications that address real-world
+            needs using modern technologies and clean design.
+          </p>
+          <p class="hero-role">
+            Software Developer • AI Enthusiast • Full-Stack Developer
+          </p>
+
+          <div class="social-row" aria-label="Social links">
+            <a href="https://github.com/ShaneseEm" aria-label="GitHub" target="_blank" rel="noreferrer noopener">GH</a>
+            <a href="https://www.linkedin.com/in/bethelhem-a-961322316/" aria-label="LinkedIn" target="_blank" rel="noreferrer noopener">in</a>
+            <a href="mailto:alemayehubethelhem12@gmail.com" aria-label="Email">@</a>
+          </div>
+
+          <div class="hero-actions">
+            <a class="button button-primary" href="#projects">Explore My Work</a>
+            <a class="button button-secondary" href="assets/Bethelhem-Alemayehu-Ejigu-FlowCV-Resume.pdf" download target="_blank" rel="noreferrer noopener">Download CV</a>
+          </div>
+        </div>
+
+        <div class="hero-visual profile-visual" aria-label="Bethelhem Alemayehu profile photo">
+          <img src="assets/photo_2026-02-26_18-46-47.jpg" alt="Bethelhem Alemayehu" />
+        </div>
+
+        <a class="scroll-cue" href="#about" aria-label="Scroll to about section">
+          <span>Scroll Down</span>
+          <strong aria-hidden="true">↓</strong>
+        </a>
+      </section>
+
+      <section class="section-shell about-section" id="about">
+        <div class="about-copy">
+          <span class="section-kicker">About Me</span>
+          <h2>Building technology solutions through curiosity and practice.</h2>
+          <div class="copy-stack">
+            <p>
+              I am a Software Engineering student at Addis Ababa Science and
+              Technology University with a strong passion for machine learning,
+              backend development, and practical problem-solving.
+            </p>
+            <p>
+              I am exploring AI, machine learning, and LLMs through hands-on
+              projects while also building web applications with the MERN stack.
+              I care deeply about empowering women through tech and influencing
+              more girls to see technology as a space where they belong.
+            </p>
+          </div>
+          <div class="trait-grid">
+            <span>AI Learning</span>
+            <span>Active Learning</span>
+            <span>Women in Tech</span>
+          </div>
+        </div>
+        <div class="about-visual" aria-label="Interactive 3D AI and technology scene">
+          <canvas id="hero-scene"></canvas>
+        </div>
+      </section>
+
+      <section class="section-shell" id="projects">
+        <div class="section-heading">
+          <span class="section-kicker">Featured Work</span>
+          <h2>Projects</h2>
+          <p>A showcase of AI, machine learning, backend, and full-stack projects.</p>
+        </div>
+
+        <div class="project-grid">
+          <article class="project-card">
+            <div class="project-image project-eight"></div>
+            <div class="project-content">
+              <h3>Aguka-Med</h3>
+              <p>AgukaMed is an AI-powered platform that helps people verify if medicines and health products are real, safe, and not fake by scanning labels, checking product information, and giving simple guidance in local language (Kinyarwanda).</p>
+              <div class="project-links">
+                <a href="https://claude-hack-1.onrender.com/">Live Demo</a>
+                <a href="https://github.com/ShaneseEm/Claude-hack">Code</a>
+              </div>
+            </div>
+          </article>
+
+          <div class="project-grid">
+          <article class="project-card">
+            <div class="project-image project-seven"></div>
+            <div class="project-content">
+              <h3>Tetris JS</h3>
+              <p>A polished web-based Tetris game with glassmorphism UI, responsive layout, and modern animations.</p>
+              <div class="project-links">
+                <a href="https://tetris-js-eight.vercel.app/">Live Demo</a>
+                <a href="https://github.com/bethelhem-dev/tetris-js">Code</a>
+              </div>
+            </div>
+          </article>
+
+
+          <article class="project-card">
+            <div class="project-image project-one"></div>
+            <div class="project-content">
+              <h3>Bens</h3>
+              <p>A deployed web project with a clean interface and production hosting on Vercel.</p>
+              <div class="project-links">
+                <a href="https://bens-ochre.vercel.app/">Live Demo</a>
+                <a href="https://github.com/ShaneseEm/Bens">Code</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-image project-two"></div>
+            <div class="project-content">
+              <h3>Grading System</h3>
+              <p>A deployed grading platform for managing academic assessment workflows.</p>
+              <div class="project-links">
+                <a href="https://grading-system-1-005i.onrender.com/">Live Demo</a>
+                <a href="https://github.com/ShaneseEm/grading-system">Code</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-image project-three"></div>
+            <div class="project-content">
+              <h3>FaceAuth AI</h3>
+              <p>An AI-powered face authentication system that uses live webcam registration, ArcFace embeddings, and cosine similarity login verification.</p>
+              <div class="project-links">
+                <a href="https://gdg-ml-group-7-w8pz.vercel.app/">Live Demo</a>
+                <a href="https://github.com/ShaneseEm/GDG_ML_Group-7">Code</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-image project-four"></div>
+            <div class="project-content">
+              <h3>wav2vec2 XLSR</h3>
+              <p>A speech and audio machine learning experiment using the wav2vec2 XLSR model.</p>
+              <div class="project-links">
+                <a href="https://github.com/ShaneseEm/wav2vec2-xlsr">Code</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-image project-five"></div>
+            <div class="project-content">
+              <h3>Ride Price ML</h3>
+              <p>A machine learning project focused on predicting ride prices from trip data.</p>
+              <div class="project-links">
+                <a href="https://github.com/ShaneseEm/ride-price-ml">Code</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-image project-six"></div>
+            <div class="project-content">
+              <h3>MERN Chat App</h3>
+              <p>A full-stack chat application built with the MERN stack and real-time app patterns.</p>
+              <div class="project-links">
+                <a href="https://github.com/ShaneseEm/MERN-ChatAPP">Code</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section-shell" id="skills">
+        <div class="section-heading">
+          <span class="section-kicker">Technical Expertise</span>
+          <h2>Skills</h2>
+          <p>Technologies I work with regularly.</p>
+        </div>
+        <div class="skill-grid">
+          <span>HTML</span>
+          <span>CSS</span>
+          <span>JavaScript</span>
+          <span>Node.js</span>
+          <span>React Native</span>
+          <span>PostgreSQL</span>
+          <span>MongoDB</span>
+          <span>Tailwind CSS</span>
+          <span>C++</span>
+          <span>Python</span>
+          <span>TensorFlow</span>
+          <span>Kaggle</span>
+          <span>VS Code</span>
+          <span>Git</span>
+          <span>Java</span>
+          <span>Machine Learning</span>
+        </div>
+      </section>
+
+      <section class="section-shell" id="services">
+        <div class="section-heading">
+          <span class="section-kicker">What I Offer</span>
+          <h2>Services</h2>
+          <p>Practical web solutions from idea to deployment.</p>
+        </div>
+
+        <div class="service-grid">
+          <article>
+            <h3>Backend Development</h3>
+            <p>APIs, databases, and server-side logic for practical web applications.</p>
+            <div><span>Node.js</span><span>MongoDB</span><span>PostgreSQL</span></div>
+          </article>
+          <article>
+            <h3>Machine Learning</h3>
+            <p>Hands-on AI projects for prediction, classification, and model experimentation.</p>
+            <div><span>Python</span><span>TensorFlow</span><span>Kaggle</span></div>
+          </article>
+          <article>
+            <h3>Full-Stack Projects</h3>
+            <p>Complete web applications from frontend interfaces to deployed backend services.</p>
+            <div><span>JavaScript</span><span>Tailwind</span><span>Git</span></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section-shell split-section" id="education">
+        <div>
+          <span class="section-kicker">Education</span>
+          <h2>Combining software engineering with management thinking.</h2>
+        </div>
+        <div class="timeline">
+          <article>
+            <span>Addis Ababa Science and Technology University</span>
+            <h3>B.Sc. in Software Engineering</h3>
+            <p>
+              Relevant coursework: Internet Programming, Database Systems,
+              Object-Oriented Programming with Java, Operating Systems, Mobile
+              Computing, Data Communication and Networking, C++, Artificial
+              Intelligence, and Machine Learning.
+            </p>
+          </article>
+          <article>
+            <span>Unity University</span>
+            <h3>BA in Management</h3>
+            <p>
+              Relevant coursework: Principles of Management, Organizational
+              Behavior, Business Communication, Financial Accounting, Marketing
+              Management, Human Resource Management, Business Law,
+              Entrepreneurship, Project Management, and Strategic Management.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section-shell contact-section" id="contact">
+
+        <!-- Left info panel -->
+        <div class="contact-left">
+          <span class="section-kicker">Get In Touch</span>
+          <h2 class="contact-heading">Let's Build Something<br><span class="contact-heading-gold">Amazing Together</span></h2>
+          <p class="contact-sub">Have a project in mind, want to collaborate, or just say hello? I'd love to hear from you.</p>
+
+          <div class="contact-info-list">
+            <div class="contact-info-item">
+              <span class="contact-info-icon">✉</span>
+              <div>
+                <p class="contact-info-label">Email</p>
+                <a href="mailto:alemayehubethelhem12@gmail.com" class="contact-info-value">alemayehubethelhem12@gmail.com</a>
+              </div>
+            </div>
+            <div class="contact-info-item">
+              <span class="contact-info-icon">📍</span>
+              <div>
+                <p class="contact-info-label">Location</p>
+                <span class="contact-info-value">Addis Ababa, Ethiopia</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-socials">
+            <p class="contact-info-label">Follow Me</p>
+            <div class="contact-social-links">
+              <a href="https://github.com/ShaneseEm" target="_blank" rel="noreferrer" class="contact-social-btn">⌥ GitHub</a>
+              <a href="https://www.linkedin.com/in/bethelhem-a-961322316/" target="_blank" rel="noreferrer" class="contact-social-btn">in LinkedIn</a>
+              <a href="mailto:alemayehubethelhem12@gmail.com" class="contact-social-btn">✉ Email</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right form panel -->
+        <div class="contact-right">
+          <h3 class="contact-form-title">Send Me a Message</h3>
+          <form class="contact-form-new">
+            <div class="contact-form-row">
+              <label class="contact-label">
+                <span>Name</span>
+                <input type="text" name="name" placeholder="Your full name" required />
+              </label>
+              <label class="contact-label">
+                <span>Email</span>
+                <input type="email" name="email" placeholder="your@email.com" required />
+              </label>
+            </div>
+            <label class="contact-label">
+              <span>Subject</span>
+              <input type="text" name="subject" placeholder="What's this about?" required />
+            </label>
+            <label class="contact-label">
+              <span>Message</span>
+              <textarea name="message" rows="6" placeholder="Tell me about your project or idea..." required></textarea>
+            </label>
+            <button class="button button-primary contact-submit" type="submit">Send Message →</button>
+          </form>
+        </div>
+
+      </section>
+    </main>
+
+    <script type="module" src="app.js"></script>
+  </body>
+</html>
