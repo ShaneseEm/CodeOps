@@ -1,0 +1,7 @@
+DevTools Inspection Notes - Day 11 Exercise 5
+Website Inspected: Ethiopian Airlines (https://www.ethiopianairlines.com)
+
+Findings from F12 Developer Tools:
+1. <header>: Contains the top banner, site branding/logo, language/currency switcher, and top header controls.
+2. <nav>: Houses the main navigation menu with dropdown links for Booking, Flight Status, ShebaMiles loyalty program, and Travel Information.
+3. <footer>: Positioned at the bottom of the page, containing site map links, contact details, social media links, copyright notice, and policy links.
