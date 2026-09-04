@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 20 - Asynchronous JavaScript & APIs Homework Exercises</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Module 2 · Day 20 Exercises</h1>
+            <p>Asynchronous JavaScript, Promises, async/await & Fetch API</p>
+        </header>
+
+        <!-- Exercise 1 -->
+        <section class="exercise-card">
+            <h3>1. Fetch USD → ETB Exchange Rate</h3>
+            <p class="desc">Fetches USD→ETB rate from public exchange-rate API, checks <code>res.ok</code>, and renders the rate.</p>
+            <div class="action-bar">
+                <button class="btn" onclick="fetchUsdToEtbRate()">Run Exercise 1</button>
+            </div>
+            <div id="ex1-output" class="output-panel">Click "Run Exercise 1" to execute...</div>
+        </section>
+
+        <!-- Exercise 2 -->
+        <section class="exercise-card">
+            <h3>2. Rewrite .then Chain to async/await</h3>
+            <p class="desc">Converts a 3-step <code>.then</code> chain (fetch → json → render) into modern <code>async/await</code> with <code>try/catch</code>.</p>
+            <div class="action-bar">
+                <button class="btn" onclick="loadUserDataAsync()">Run Exercise 2</button>
+            </div>
+            <div id="ex2-output" class="output-panel">Click "Run Exercise 2" to execute...</div>
+        </section>
+
+        <!-- Exercise 3 -->
+        <section class="exercise-card">
+            <h3>3. Network Error vs. HTTP 404 (Why res.ok is Required)</h3>
+            <p class="desc">Part A tests a network failure. Part B tests a real URL returning 404 to prove <code>fetch()</code> resolves on HTTP errors.</p>
+            <div class="action-bar">
+                <button class="btn btn-secondary" onclick="testNetworkError()">Run Part A (Network Failure)</button>
+                <button class="btn" onclick="testHttp404Error()">Run Part B (HTTP 404 res.ok Check)</button>
+            </div>
+            <div id="ex3-output" class="output-panel">Click a button to test error handling behavior...</div>
+        </section>
+
+        <!-- Exercise 4 -->
+        <section class="exercise-card">
+            <h3>4. Parallel Requests with Promise.all</h3>
+            <p class="desc">Fetches a post list, then uses <code>Promise.all</code> to fetch details for the first two items in parallel.</p>
+            <div class="action-bar">
+                <button class="btn" onclick="fetchParallelDetails()">Run Exercise 4 (Promise.all)</button>
+            </div>
+            <div id="ex4-output" class="output-panel">Click "Run Exercise 4" to execute parallel requests...</div>
+        </section>
+
+        <!-- Exercise 5 -->
+        <section class="exercise-card">
+            <h3>5. UI State Management (Loading, Success & Error)</h3>
+            <p class="desc">Demonstrates all three UI states: Loading spinner, Success data, and Error message handling.</p>
+            <div class="action-bar">
+                <button class="btn" onclick="fetchWithStateManagement(false)">Simulate Success State</button>
+                <button class="btn btn-secondary" onclick="fetchWithStateManagement(true)">Simulate Error State</button>
+            </div>
+            <div id="ex5-output" class="output-panel">Click a state button above to trigger UI state transitions...</div>
+        </section>
+    </div>
+
+    <!-- Load Exercise Scripts -->
+    <script src="exercise1.js"></script>
+    <script src="exercise2.js"></script>
+    <script src="exercise3.js"></script>
+    <script src="exercise4.js"></script>
+    <script src="exercise5.js"></script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Country Facts Explorer | REST Countries API</title>
+    <meta name="description" content="Explore real-time facts, capitals, population, region, currencies and flags for countries worldwide using REST Countries API.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="app-shell">
+        <header class="app-header">
+            <div class="brand">
+                <span class="globe-icon">🌍</span>
+                <h1>Country Facts Explorer</h1>
+            </div>
+            <p class="subtitle">Search live country facts from the REST Countries REST API</p>
+        </header>
+
+        <!-- Search Bar Form -->
+        <form id="search-form" class="search-form">
+            <div class="search-input-wrapper">
+                <span class="search-icon">🔍</span>
+                <input 
+                    type="text" 
+                    id="country-input" 
+                    placeholder="Enter country name (e.g. Ethiopia, Canada, Japan)..." 
+                    autocomplete="off"
+                    required 
+                />
+            </div>
+            <button type="submit" class="search-btn">Search Country</button>
+        </form>
+
+        <!-- Main Display Container for Loading, Facts Card, or Error -->
+        <main id="facts-container" class="facts-container" aria-live="polite">
+            <!-- Dynamically populated by app.js -->
+        </main>
+
+        <footer class="app-footer">
+            <p>Powered by <a href="https://restcountries.com" target="_blank" rel="noreferrer">REST Countries API v3.1</a> | CodeOps Module 2 Day 20 Mini-Project</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
