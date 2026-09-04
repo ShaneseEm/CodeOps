@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 21 · Storage, Forms & Regex — Exercises</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════ HEADER -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="badge">Module 2 · Day 21</div>
+      <h1>Storage, Forms &amp; Regular Expressions</h1>
+      <p class="subtitle">localStorage · JSON · Form Validation · Regex</p>
+
+      <!-- Exercise 1 — Theme / Language Toggle -->
+      <div class="toggle-row">
+        <label for="lang-select">🌐 Language</label>
+        <select id="lang-select">
+          <option value="en">English</option>
+          <option value="am">አማርኛ</option>
+        </select>
+
+        <label for="theme-select">🎨 Theme</label>
+        <select id="theme-select">
+          <option value="dark">Dark</option>
+          <option value="light">Light</option>
+        </select>
+      </div>
+      <p id="lang-note" class="lang-note"></p>
+    </div>
+  </header>
+
+  <main class="main-grid">
+
+    <!-- ═══ EXERCISE 2 — save() / load() helpers ═══ -->
+    <section class="card" id="ex2-card">
+      <div class="card-num">02</div>
+      <h2>save() &amp; load() Helpers</h2>
+      <p class="card-desc">Stringify an array into <code>localStorage</code> and parse it back safely with <code>try/catch</code>.</p>
+
+      <div class="input-row">
+        <input id="fruit-input" type="text" placeholder="Type a fruit…" />
+        <button id="fruit-add" class="btn btn-primary">Add</button>
+      </div>
+      <ul id="fruit-list" class="item-list"></ul>
+      <div class="btn-row">
+        <button id="fruit-save" class="btn btn-secondary">💾 Save to Storage</button>
+        <button id="fruit-load" class="btn btn-secondary">📂 Load from Storage</button>
+        <button id="fruit-clear" class="btn btn-danger">🗑 Clear Storage</button>
+      </div>
+      <p id="fruit-status" class="status-msg"></p>
+    </section>
+
+    <!-- ═══ EXERCISES 3-5 — Signup Form ═══ -->
+    <section class="card" id="ex3-card">
+      <div class="card-num">03–05</div>
+      <h2>Signup Form + Validation</h2>
+      <p class="card-desc"><code>e.preventDefault()</code>, trimmed values, name ≥ 2 chars, Ethiopian phone regex, <code>.textContent</code> errors.</p>
+
+      <form id="signup-form" novalidate>
+        <div class="field">
+          <label for="name-input">Full Name</label>
+          <input id="name-input" type="text" placeholder="e.g. Almaz Bekele" autocomplete="name" />
+        </div>
+        <div class="field">
+          <label for="phone-input">Phone Number</label>
+          <input id="phone-input" type="tel" placeholder="09XXXXXXXX or +251 9XXXXXXXX" autocomplete="tel" />
+        </div>
+        <p id="form-error" class="error-msg" role="alert" aria-live="polite"></p>
+        <p id="form-success" class="success-msg" role="status" aria-live="polite"></p>
+        <button type="submit" id="signup-btn" class="btn btn-primary btn-full">Sign Up</button>
+      </form>
+    </section>
+
+    <!-- ═══ EXERCISE 6 — Persistent Count ═══ -->
+    <section class="card" id="ex6-card">
+      <div class="card-num">06</div>
+      <h2>Registered Users</h2>
+      <p class="card-desc">Valid entries saved as JSON, count restored on every reload.</p>
+
+      <div class="counter-display">
+        <span id="user-count" class="big-count">0</span>
+        <span class="count-label">people signed up</span>
+      </div>
+      <ul id="user-list" class="item-list user-list"></ul>
+      <button id="clear-users" class="btn btn-danger btn-sm">🗑 Clear All Users</button>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>IBT College Canada · CodeOps · Module 2 · Day 21</p>
+  </footer>
+
+  <script src="exercise1.js"></script>
+  <script src="exercise2.js"></script>
+  <script src="exercise3.js"></script>
+  <script src="exercise4.js"></script>
+  <script src="exercise5.js"></script>
+  <script src="exercise6.js"></script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 21 Mini-Project · Signup Form</title>
+  <meta name="description" content="A validated, persistent signup form using localStorage, JSON, forms and regex — Day 21 Mini-Project, CodeOps Module 2." />
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <div class="page-wrapper">
+
+    <!-- ══════════════════ HERO / BRAND ══════════════════ -->
+    <header class="hero" role="banner">
+      <div class="hero-glow"></div>
+      <div class="hero-inner">
+        <div class="brand-pill">IBT CodeOps · Module 2 · Day 21</div>
+        <h1>Sign Up</h1>
+        <p class="hero-sub">Join the community — your info is saved right in your browser.</p>
+      </div>
+    </header>
+
+    <main class="main">
+
+      <!-- ══════ SIGNUP CARD ══════ -->
+      <section class="card form-card" aria-label="Signup form">
+
+        <!-- Error area (shown on invalid submission) -->
+        <div id="error-area" class="error-area" role="alert" aria-live="polite" aria-atomic="true"></div>
+
+        <form id="signup-form" novalidate>
+
+          <div class="field">
+            <label for="name-input">Full Name</label>
+            <div class="input-wrapper">
+              <span class="input-icon">👤</span>
+              <input
+                id="name-input"
+                type="text"
+                name="name"
+                placeholder="e.g. Almaz Bekele"
+                autocomplete="name"
+                aria-required="true"
+              />
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="phone-input">Ethiopian Phone Number</label>
+            <div class="input-wrapper">
+              <span class="input-icon">📱</span>
+              <input
+                id="phone-input"
+                type="tel"
+                name="phone"
+                placeholder="09XXXXXXXX or +2519XXXXXXXX"
+                autocomplete="tel"
+                aria-required="true"
+              />
+            </div>
+            <p class="field-hint">Format: 09XXXXXXXX or +251 9XXXXXXXX</p>
+          </div>
+
+          <button type="submit" id="submit-btn" class="btn-submit">
+            <span class="btn-label">Create Account</span>
+            <span class="btn-icon">→</span>
+          </button>
+
+        </form>
+      </section>
+
+      <!-- ══════ REGISTERED USERS CARD ══════ -->
+      <section class="card users-card" aria-label="Registered users">
+        <div class="users-header">
+          <div>
+            <h2>Registered Users</h2>
+            <p class="users-sub">Restored from your browser's localStorage on every visit.</p>
+          </div>
+          <div class="counter-pill">
+            <span id="user-count">0</span>
+            <span class="counter-label">signed up</span>
+          </div>
+        </div>
+
+        <ul id="user-list" class="user-list" aria-live="polite" aria-label="List of registered users"></ul>
+
+        <button id="clear-btn" class="btn-clear" aria-label="Clear all registered users">
+          🗑 Clear All
+        </button>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <p>IBT College Canada · CodeOps · Module 2 · Day 21 Mini-Project</p>
+    </footer>
+
+  </div><!-- /.page-wrapper -->
+
+  <script src="app.js"></script>
+</body>
+</html>
