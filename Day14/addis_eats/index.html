@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Addis Eats · Authentic Ethiopian Food & Express Delivery</title>
+  <meta name="description" content="Order fresh, authentic Ethiopian dishes online in Addis Ababa with live tracking and fast TeleBirr checkout.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <!-- Header Navigation & Search -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand">
+        <span class="brand-badge" aria-hidden="true">🇪🇹</span>
+        <div class="brand-title">
+          <h1>Addis Eats</h1>
+          <p class="brand-sub">Bole · Addis Ababa</p>
+        </div>
+      </div>
+
+      <div class="search-bar">
+        <span class="search-icon" aria-hidden="true">🔍</span>
+        <input 
+          type="search" 
+          id="search" 
+          placeholder="Search Doro Wat, Shiro, Kitfo..." 
+          aria-label="Search menu dishes by name or ingredient"
+          autocomplete="off"
+        />
+        <button type="button" id="clear-search" class="clear-search-btn hidden" aria-label="Clear search">✕</button>
+      </div>
+
+      <button type="button" id="mobile-cart-toggle" class="mobile-cart-btn" aria-label="View shopping cart">
+        <span aria-hidden="true">🛒</span>
+        <span class="cart-count-badge" id="mobile-cart-count">0</span>
+      </button>
+    </div>
+
+    <!-- Category Filter Bar -->
+    <nav class="category-nav" aria-label="Food category filters">
+      <div class="category-pills" id="category-pills">
+        <button type="button" class="category-pill active" data-category="All">All Dishes</button>
+        <button type="button" class="category-pill" data-category="Main">Main Dishes</button>
+        <button type="button" class="category-pill" data-category="Vegetarian">Vegetarian</button>
+        <button type="button" class="category-pill" data-category="Breakfast">Breakfast</button>
+        <button type="button" class="category-pill" data-category="Drinks">Beverages</button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Main Content Shell: Menu Grid + Cart Sidebar -->
+  <main class="app-main">
+    <!-- Menu Dishes Section -->
+    <section id="menu-section" class="menu-section">
+      <div class="section-header">
+        <h2 id="menu-heading">Menu Specials</h2>
+        <span id="results-count" class="results-count">Loading...</span>
+      </div>
+
+      <!-- Menu Grid (Populated dynamically by app.js) -->
+      <div id="menu" class="menu-grid" aria-label="Menu list" aria-live="polite">
+        <!-- Loading Skeleton placeholder -->
+        <div class="loading-state">
+          <div class="spinner" aria-hidden="true"></div>
+          <p>Loading menu from Addis Eats kitchen...</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Shopping Cart Aside -->
+    <aside id="cart" class="cart-panel" aria-label="Your order cart">
+      <div class="cart-header">
+        <div class="cart-title">
+          <h2>Your Order</h2>
+          <span class="cart-icon" aria-hidden="true">🛍️</span>
+        </div>
+        <button type="button" id="clear-cart-btn" class="text-btn danger-text hidden" title="Remove all items from cart">Clear All</button>
+      </div>
+
+      <!-- Cart Line Items Container -->
+      <div id="cart-items" class="cart-items-list" aria-live="polite">
+        <!-- Rendered by app.js -->
+        <div class="empty-cart-state">
+          <span class="empty-icon" aria-hidden="true">🛒</span>
+          <p>Your cart is empty</p>
+          <small>Select dishes from the menu to build your order.</small>
+        </div>
+      </div>
+
+      <!-- Cart Summary Footer -->
+      <div class="cart-summary">
+        <div class="summary-row">
+          <span>Subtotal</span>
+          <span id="cart-subtotal">0 ETB</span>
+        </div>
+        <div class="summary-row">
+          <span>Delivery (Bole & Nearby)</span>
+          <span id="cart-delivery" class="free-delivery">FREE</span>
+        </div>
+        <div class="summary-row grand-total">
+          <span>Total Payable</span>
+          <span id="cart-total" class="total-amount">0 ETB</span>
+        </div>
+
+        <button type="button" id="checkout-btn" class="checkout-btn" disabled>
+          <span>Proceed to TeleBirr Checkout</span>
+          <span aria-hidden="true">➔</span>
+        </button>
+      </div>
+    </aside>
+  </main>
+
+  <!-- TeleBirr Checkout Modal -->
+  <dialog id="checkout-modal" class="modal">
+    <div class="modal-card">
+      <header class="modal-header">
+        <div class="telebirr-brand">
+          <span class="telebirr-icon">📱</span>
+          <h3>TeleBirr Express Checkout</h3>
+        </div>
+        <button type="button" id="close-modal-btn" class="close-btn" aria-label="Close checkout modal">✕</button>
+      </header>
+
+      <form id="checkout-form" class="modal-body" novalidate>
+        <div class="order-recap" id="modal-order-summary">
+          <!-- Summary inserted dynamically -->
+        </div>
+
+        <!-- Form Error Announcement Region -->
+        <p id="form-error" class="error-box hidden" aria-live="polite"></p>
+
+        <div class="form-group">
+          <label for="cust-name">Full Name <span class="required">*</span></label>
+          <input type="text" id="cust-name" required placeholder="e.g. Abebe Bikila" />
+          <span class="error-hint" id="name-error">Please enter your full name</span>
+        </div>
+
+        <div class="form-group">
+          <label for="cust-phone">TeleBirr Registered Phone Number <span class="required">*</span></label>
+          <input type="tel" id="cust-phone" required placeholder="e.g. 0911223344 or 0711223344" />
+          <small class="form-help">Must start with 09 or 07 followed by 8 digits</small>
+          <span class="error-hint" id="phone-error">Enter a valid Ethiopian phone (e.g. 0911223344)</span>
+        </div>
+
+        <div class="form-group">
+          <label for="cust-area">Delivery Area <span class="required">*</span></label>
+          <select id="cust-area" required>
+            <option value="Bole">Bole</option>
+            <option value="Kazanchis">Kazanchis</option>
+            <option value="Megenagna">Megenagna</option>
+            <option value="CMC">CMC</option>
+            <option value="Piassa">Piassa</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="cust-address">Delivery Location / Building <span class="required">*</span></label>
+          <input type="text" id="cust-address" required placeholder="e.g. Near Edna Mall, Bldg #4" />
+          <span class="error-hint" id="address-error">Please specify your delivery location</span>
+        </div>
+
+        <div class="form-group">
+          <label for="cust-notes">Special Instructions (Optional)</label>
+          <textarea id="cust-notes" rows="2" placeholder="e.g. Extra spicy berbere, extra ayib cheese..."></textarea>
+        </div>
+
+        <div class="payment-method-box">
+          <input type="radio" id="pm-telebirr" name="payment-method" value="telebirr" checked />
+          <label for="pm-telebirr">
+            <strong>TeleBirr Instant Payment</strong>
+            <small>Instant push prompt will be sent to your phone</small>
+          </label>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" id="cancel-checkout-btn" class="btn secondary-btn">Cancel</button>
+          <button type="submit" class="btn primary-btn">
+            <span>Confirm & Pay <strong id="modal-total-btn">0 ETB</strong></span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </dialog>
+
+  <!-- Order Success Modal -->
+  <dialog id="success-modal" class="modal">
+    <div class="modal-card success-card">
+      <div class="success-icon" aria-hidden="true">🎉</div>
+      <h3>Order Placed Successfully!</h3>
+      <p id="success-message">Your order has been sent to Addis Eats kitchen. TeleBirr payment request triggered.</p>
+      <div class="receipt-box" id="receipt-details"></div>
+      <button type="button" id="close-success-btn" class="btn primary-btn">Back to Menu</button>
+    </div>
+  </dialog>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <div class="footer-container">
+      <div class="footer-info">
+        <h3>Addis Eats Restaurant</h3>
+        <p>Bole Road, next to Friendship City Center · Addis Ababa, Ethiopia</p>
+        <p>Open Daily: 7:00 AM – 10:30 PM · Phone: +251 91 100 0000</p>
+      </div>
+      <div class="footer-payments">
+        <span>Accepted Payment Options:</span>
+        <div class="payment-badges">
+          <span class="badge telebirr">TeleBirr</span>
+          <span class="badge cbe">CBE Birr</span>
+          <span class="badge cash">Cash on Delivery</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Addis Eats · Property of IBT College Canada CodeOps Capstone</p>
+    </div>
+  </footer>
+</body>
+</html>
