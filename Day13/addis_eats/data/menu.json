@@ -1,0 +1,134 @@
+[
+  {
+    "id": 1,
+    "name": "Doro Wat",
+    "category": "Main",
+    "price": 380,
+    "spicy": true,
+    "description": "Slow-cooked tender chicken leg in rich berbere spice sauce with hard-boiled egg and injera.",
+    "icon": "🍗",
+    "rating": 4.9,
+    "prepTime": "25 min"
+  },
+  {
+    "id": 2,
+    "name": "Shiro Tegabeno",
+    "category": "Vegetarian",
+    "price": 180,
+    "spicy": false,
+    "description": "Richly spiced chickpea and yellow split pea flour stew served piping hot in a traditional clay pot.",
+    "icon": "🍲",
+    "rating": 4.8,
+    "prepTime": "15 min"
+  },
+  {
+    "id": 3,
+    "name": "Special Kitfo",
+    "category": "Main",
+    "price": 420,
+    "spicy": true,
+    "description": "Minced lean beef seasoned with niter kibbeh (clarified butter) and mitmita spice, served with ayib cheese and gomen.",
+    "icon": "🥩",
+    "rating": 4.9,
+    "prepTime": "20 min"
+  },
+  {
+    "id": 4,
+    "name": "Yebessar Beyaynetu",
+    "category": "Vegetarian",
+    "price": 260,
+    "spicy": false,
+    "description": "Colorful vegetarian platter featuring shiro, kik alicha, misir wat, gomen, and beet salad on fresh injera.",
+    "icon": "🥗",
+    "rating": 5.0,
+    "prepTime": "15 min"
+  },
+  {
+    "id": 5,
+    "name": "Beef Shekla Tibs",
+    "category": "Main",
+    "price": 350,
+    "spicy": true,
+    "description": "Sizzling strips of tender beef sauteed with onions, rosemary, and jalapeno peppers on a clay burner.",
+    "icon": "🍳",
+    "rating": 4.7,
+    "prepTime": "20 min"
+  },
+  {
+    "id": 6,
+    "name": "Special Chechebsa",
+    "category": "Breakfast",
+    "price": 190,
+    "spicy": false,
+    "description": "Shredded flatbread (kitcha) tossed in berbere and warm spiced clarified butter, topped with honey and fresh yogurt.",
+    "icon": "🥞",
+    "rating": 4.8,
+    "prepTime": "12 min"
+  },
+  {
+    "id": 7,
+    "name": "Fasika Gomen besiga",
+    "category": "Main",
+    "price": 310,
+    "spicy": false,
+    "description": "Fresh collard greens simmered with tender beef chunks, garlic, ginger, and spiced butter.",
+    "icon": "🥬",
+    "rating": 4.6,
+    "prepTime": "22 min"
+  },
+  {
+    "id": 8,
+    "name": "Asa Tibs (Fish)",
+    "category": "Main",
+    "price": 330,
+    "spicy": true,
+    "description": "Crispy fried lake fish nuggets seasoned with korarima spice and served with spicy dipping sauce.",
+    "icon": "🐟",
+    "rating": 4.7,
+    "prepTime": "18 min"
+  },
+  {
+    "id": 9,
+    "name": "Layered Avocado Spris",
+    "category": "Drinks",
+    "price": 90,
+    "spicy": false,
+    "description": "Freshly blended layered smoothie with mango, papaya, and cream avocado topped with vimto drizzle.",
+    "icon": "🍹",
+    "rating": 4.9,
+    "prepTime": "5 min"
+  },
+  {
+    "id": 10,
+    "name": "Traditional Spiced Macchiato",
+    "category": "Drinks",
+    "price": 60,
+    "spicy": false,
+    "description": "Double shot of rich Ethiopian Yirgacheffe espresso layered with silky steamed milk foam.",
+    "icon": "☕",
+    "rating": 5.0,
+    "prepTime": "5 min"
+  },
+  {
+    "id": 11,
+    "name": "Ambo Mineral Water (500ml)",
+    "category": "Drinks",
+    "price": 45,
+    "spicy": false,
+    "description": "Naturally sparkling mineral water from the thermal springs of Ambo.",
+    "icon": "💧",
+    "rating": 4.5,
+    "prepTime": "1 min"
+  },
+  {
+    "id": 12,
+    "name": "Tej Honey Wine (Glass)",
+    "category": "Drinks",
+    "price": 140,
+    "spicy": false,
+    "description": "Authentic fermented Ethiopian honey wine brewed with gesho leaves.",
+    "icon": "🍷",
+    "rating": 4.8,
+    "prepTime": "2 min"
+  }
+]
