@@ -7,7 +7,7 @@
   <meta name="description" content="Order fresh, authentic Ethiopian dishes online in Addis Ababa with live tracking and fast TeleBirr checkout.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <script src="app.js" defer></script>
 </head>
@@ -64,7 +64,7 @@
 
       <!-- Menu Grid (Populated dynamically by app.js) -->
       <div id="menu" class="menu-grid" aria-label="Menu list" aria-live="polite">
-        <!-- Loading Skeleton / Spinner placeholder -->
+        <!-- Loading Skeleton placeholder -->
         <div class="loading-state">
           <div class="spinner" aria-hidden="true"></div>
           <p>Loading menu from Addis Eats kitchen...</p>
@@ -131,6 +131,9 @@
           <!-- Summary inserted dynamically -->
         </div>
 
+        <!-- Form Error Announcement Region -->
+        <p id="form-error" class="error-box hidden" aria-live="polite"></p>
+
         <div class="form-group">
           <label for="cust-name">Full Name <span class="required">*</span></label>
           <input type="text" id="cust-name" required placeholder="e.g. Abebe Bikila" />
@@ -139,15 +142,26 @@
 
         <div class="form-group">
           <label for="cust-phone">TeleBirr Registered Phone Number <span class="required">*</span></label>
-          <input type="tel" id="cust-phone" required placeholder="e.g. 0911223344 or 0711223344" pattern="^(09|07)\d{8}$" />
+          <input type="tel" id="cust-phone" required placeholder="e.g. 0911223344 or 0711223344" />
           <small class="form-help">Must start with 09 or 07 followed by 8 digits</small>
-          <span class="error-hint" id="phone-error">Enter a valid 10-digit TeleBirr number (09... or 07...)</span>
+          <span class="error-hint" id="phone-error">Enter a valid Ethiopian phone (e.g. 0911223344)</span>
+        </div>
+
+        <div class="form-group">
+          <label for="cust-area">Delivery Area <span class="required">*</span></label>
+          <select id="cust-area" required>
+            <option value="Bole">Bole</option>
+            <option value="Kazanchis">Kazanchis</option>
+            <option value="Megenagna">Megenagna</option>
+            <option value="CMC">CMC</option>
+            <option value="Piassa">Piassa</option>
+          </select>
         </div>
 
         <div class="form-group">
           <label for="cust-address">Delivery Location / Building <span class="required">*</span></label>
-          <input type="text" id="cust-address" required placeholder="e.g. Bole Atlas, near Edna Mall, Bldg #4" />
-          <span class="error-hint" id="address-error">Please specify your delivery address</span>
+          <input type="text" id="cust-address" required placeholder="e.g. Near Edna Mall, Bldg #4" />
+          <span class="error-hint" id="address-error">Please specify your delivery location</span>
         </div>
 
         <div class="form-group">
@@ -173,7 +187,7 @@
     </div>
   </dialog>
 
-  <!-- Order Success Modal / Toast -->
+  <!-- Order Success Modal -->
   <dialog id="success-modal" class="modal">
     <div class="modal-card success-card">
       <div class="success-icon" aria-hidden="true">🎉</div>

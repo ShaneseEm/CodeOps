@@ -1,10 +1,16 @@
 /**
- * Addis Eats - Single Page Application Core Logic
- * Module 2 Capstone Project
- * Architecture: fetch -> state -> render loop with LocalStorage persistence
+ * Addis Eats — Single Page Application Core & Checkout Logic
+ * Module 2 Capstone Project — Phase 2: Polish, Refactor & Debug
+ * CodeOps · Full Stack Software Development
  */
 
-// Global Application State
+// ── 1. NAMED CONSTANTS ──
+const FREE_DELIVERY_OVER = 500; // ETB
+const DELIVERY_FEE = 30;        // ETB
+const STORAGE_KEY = "addiseats";
+const PHONE_REGEX = /^(?:\+251|0)[79]\d{8}$/; // Accepts 09xxxxxxxx, 07xxxxxxxx, +2519xxxxxxxx
+
+// ── 2. GLOBAL APPLICATION STATE ──
 const state = {
   dishes: [],       // Raw menu data fetched from JSON
   cart: [],         // Active cart items: { id, name, price, qty, icon }
@@ -14,10 +20,7 @@ const state = {
   error: null       // Error message if fetch fails
 };
 
-// Storage Key constant
-const STORAGE_KEY = "addis_eats_cart";
-
-// DOM Elements Cache
+// ── 3. DOM ELEMENTS CACHE ──
 const DOM = {
   searchInput: document.getElementById("search"),
   clearSearchBtn: document.getElementById("clear-search"),
@@ -26,6 +29,7 @@ const DOM = {
   resultsCount: document.getElementById("results-count"),
   cartItems: document.getElementById("cart-items"),
   cartSubtotal: document.getElementById("cart-subtotal"),
+  cartDelivery: document.getElementById("cart-delivery"),
   cartTotal: document.getElementById("cart-total"),
   clearCartBtn: document.getElementById("clear-cart-btn"),
   checkoutBtn: document.getElementById("checkout-btn"),
@@ -37,6 +41,7 @@ const DOM = {
   closeModalBtn: document.getElementById("close-modal-btn"),
   cancelCheckoutBtn: document.getElementById("cancel-checkout-btn"),
   checkoutForm: document.getElementById("checkout-form"),
+  formError: document.getElementById("form-error"),
   modalOrderSummary: document.getElementById("modal-order-summary"),
   modalTotalBtn: document.getElementById("modal-total-btn"),
   successModal: document.getElementById("success-modal"),
@@ -44,9 +49,7 @@ const DOM = {
   receiptDetails: document.getElementById("receipt-details")
 };
 
-// ==========================================================================
-// 1. Data Fetching Pipeline
-// ==========================================================================
+// ── 4. DATA FETCHING PIPELINE ──
 
 /**
  * Loads menu items from data/menu.json asynchronously with loading & error handling
@@ -73,12 +76,10 @@ async function loadMenu() {
   render();
 }
 
-// ==========================================================================
-// 2. Rendering Pipeline (State -> DOM)
-// ==========================================================================
+// ── 5. RENDERING PIPELINE (State -> DOM) ──
 
 /**
- * Main render function - draws the entire UI based on current state
+ * Main render function — draws the entire UI based on current state
  */
 function render() {
   renderMenu();
@@ -89,7 +90,9 @@ function render() {
  * Filters dishes and renders menu cards into #menu container
  */
 function renderMenu() {
-  // 1. Handle Loading State
+  if (!DOM.menuGrid) return;
+
+  // 1. Loading State Guard
   if (state.isLoading) {
     DOM.menuGrid.innerHTML = `
       <div class="loading-state">
@@ -97,11 +100,11 @@ function renderMenu() {
         <p>Loading fresh Addis Eats menu...</p>
       </div>
     `;
-    DOM.resultsCount.textContent = "Loading...";
+    if (DOM.resultsCount) DOM.resultsCount.textContent = "Loading...";
     return;
   }
 
-  // 2. Handle Error State
+  // 2. Error State Guard
   if (state.error) {
     DOM.menuGrid.innerHTML = `
       <div class="error-state">
@@ -110,11 +113,11 @@ function renderMenu() {
         <button onclick="loadMenu()" class="btn primary-btn" style="margin-top: 1rem;">Retry Loading</button>
       </div>
     `;
-    DOM.resultsCount.textContent = "Error loading data";
+    if (DOM.resultsCount) DOM.resultsCount.textContent = "Error loading data";
     return;
   }
 
-  // 3. Filter Dishes based on search term & selected category
+  // 3. Filter Dishes based on search term & category
   const term = state.search.trim().toLowerCase();
   const filteredDishes = state.dishes.filter(dish => {
     const matchesSearch = dish.name.toLowerCase().includes(term) || 
@@ -124,16 +127,17 @@ function renderMenu() {
     return matchesSearch && matchesCategory;
   });
 
-  // Update results count indicator
-  DOM.resultsCount.textContent = `Showing ${filteredDishes.length} of ${state.dishes.length} items`;
+  if (DOM.resultsCount) {
+    DOM.resultsCount.textContent = `Showing ${filteredDishes.length} of ${state.dishes.length} items`;
+  }
 
-  // 4. Handle Empty Search State
+  // 4. Empty Search Result Guard
   if (filteredDishes.length === 0) {
     DOM.menuGrid.innerHTML = `
       <div class="empty-state">
         <span class="empty-icon">🔍</span>
         <h3>No dishes found</h3>
-        <p>We couldn't find any dishes matching "${state.search}". Try searching for another term or selecting a different category.</p>
+        <p>We couldn't find any dishes matching "${state.search}". Try another term or category.</p>
       </div>
     `;
     return;
@@ -173,13 +177,9 @@ function renderMenu() {
  * Calculates live totals using Array.prototype.reduce and updates Cart UI
  */
 function renderCart() {
-  const totalItems = state.cart.reduce((sum, item) => sum + item.qty, 0);
-  const totalETB = computeCartTotal();
+  if (!DOM.cartItems) return;
 
-  // Update Badge Counters
-  DOM.mobileCartCount.textContent = totalItems;
-
-  // Render Cart Item Lines
+  // Guard clause for empty cart
   if (state.cart.length === 0) {
     DOM.cartItems.innerHTML = `
       <div class="empty-cart-state">
@@ -188,46 +188,56 @@ function renderCart() {
         <small>Select dishes from the menu to build your order.</small>
       </div>
     `;
-    DOM.clearCartBtn.classList.add("hidden");
-    DOM.checkoutBtn.disabled = true;
-  } else {
-    DOM.clearCartBtn.classList.remove("hidden");
-    DOM.checkoutBtn.disabled = false;
-
-    DOM.cartItems.innerHTML = state.cart.map(item => `
-      <div class="cart-item" data-id="${item.id}">
-        <div class="cart-item-details">
-          <div class="cart-item-name">${item.icon || "🍲"} ${item.name}</div>
-          <div class="cart-item-price">${item.price} ETB × ${item.qty} = <strong>${item.price * item.qty} ETB</strong></div>
-        </div>
-
-        <div class="cart-item-actions">
-          <button type="button" class="qty-btn dec-qty-btn" data-id="${item.id}" aria-label="Decrease quantity">-</button>
-          <span class="qty-value">${item.qty}</span>
-          <button type="button" class="qty-btn inc-qty-btn" data-id="${item.id}" aria-label="Increase quantity">+</button>
-          <button type="button" class="remove-btn" data-id="${item.id}" aria-label="Remove item">✕</button>
-        </div>
-      </div>
-    `).join("");
+    if (DOM.clearCartBtn) DOM.clearCartBtn.classList.add("hidden");
+    if (DOM.checkoutBtn) DOM.checkoutBtn.disabled = true;
+    if (DOM.mobileCartCount) DOM.mobileCartCount.textContent = "0";
+    if (DOM.cartSubtotal) DOM.cartSubtotal.textContent = "0 ETB";
+    if (DOM.cartTotal) DOM.cartTotal.textContent = "0 ETB";
+    return;
   }
 
-  // Update Summary ETB totals
-  DOM.cartSubtotal.textContent = `${totalETB} ETB`;
-  DOM.cartTotal.textContent = `${totalETB} ETB`;
-  DOM.modalTotalBtn.textContent = `${totalETB} ETB`;
+  const totalItems = state.cart.reduce((sum, item) => sum + item.qty, 0);
+  const subtotalETB = computeCartTotal();
+  const deliveryFee = subtotalETB >= FREE_DELIVERY_OVER ? 0 : DELIVERY_FEE;
+  const grandTotalETB = subtotalETB + deliveryFee;
+
+  if (DOM.mobileCartCount) DOM.mobileCartCount.textContent = totalItems;
+  if (DOM.clearCartBtn) DOM.clearCartBtn.classList.remove("hidden");
+  if (DOM.checkoutBtn) DOM.checkoutBtn.disabled = false;
+
+  DOM.cartItems.innerHTML = state.cart.map(item => `
+    <div class="cart-item" data-id="${item.id}">
+      <div class="cart-item-details">
+        <div class="cart-item-name">${item.icon || "🍲"} ${item.name}</div>
+        <div class="cart-item-price">${item.price} ETB × ${item.qty} = <strong>${item.price * item.qty} ETB</strong></div>
+      </div>
+
+      <div class="cart-item-actions">
+        <button type="button" class="qty-btn dec-qty-btn" data-id="${item.id}" aria-label="Decrease quantity">-</button>
+        <span class="qty-value">${item.qty}</span>
+        <button type="button" class="qty-btn inc-qty-btn" data-id="${item.id}" aria-label="Increase quantity">+</button>
+        <button type="button" class="remove-btn" data-id="${item.id}" aria-label="Remove item">✕</button>
+      </div>
+    </div>
+  `).join("");
+
+  if (DOM.cartSubtotal) DOM.cartSubtotal.textContent = `${subtotalETB} ETB`;
+  if (DOM.cartDelivery) {
+    DOM.cartDelivery.textContent = deliveryFee === 0 ? "FREE" : `${deliveryFee} ETB`;
+    DOM.cartDelivery.className = deliveryFee === 0 ? "free-delivery" : "";
+  }
+  if (DOM.cartTotal) DOM.cartTotal.textContent = `${grandTotalETB} ETB`;
+  if (DOM.modalTotalBtn) DOM.modalTotalBtn.textContent = `${grandTotalETB} ETB`;
 }
 
 /**
- * Computes the total ETB sum using reduce
- * Requirement: A computed total or summary (reduce)
+ * Computes the subtotal ETB sum using Array.prototype.reduce
  */
 function computeCartTotal() {
   return state.cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
 }
 
-// ==========================================================================
-// 3. Cart State Modifications
-// ==========================================================================
+// ── 6. CART STATE MODIFICATIONS ──
 
 function addToCart(dishId) {
   const dish = state.dishes.find(d => d.id === dishId);
@@ -250,14 +260,14 @@ function addToCart(dishId) {
   renderCart();
 }
 
-function updateQuantity(dishId, change) {
-  const lineIndex = state.cart.findIndex(item => item.id === dishId);
-  if (lineIndex === -1) return;
+function updateQuantity(dishId, delta) {
+  const line = state.cart.find(item => item.id === dishId);
+  if (!line) return;
 
-  state.cart[lineIndex].qty += change;
-
-  if (state.cart[lineIndex].qty <= 0) {
-    state.cart.splice(lineIndex, 1);
+  line.qty += delta;
+  if (line.qty <= 0) {
+    removeFromCart(dishId);
+    return;
   }
 
   saveCart();
@@ -276,15 +286,13 @@ function clearCart() {
   renderCart();
 }
 
-// ==========================================================================
-// 4. LocalStorage Persistence
-// ==========================================================================
+// ── 7. PERSISTENCE (localStorage) ──
 
 function saveCart() {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state.cart));
   } catch (err) {
-    console.error("Could not save cart to LocalStorage:", err);
+    console.error("Failed to save cart to localStorage:", err);
   }
 }
 
@@ -292,120 +300,69 @@ function loadCart() {
   try {
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved) {
-      state.cart = JSON.parse(saved);
+      const parsed = JSON.parse(saved);
+      if (Array.isArray(parsed)) {
+        state.cart = parsed;
+      }
     }
   } catch (err) {
-    console.error("Could not load cart from LocalStorage:", err);
+    console.error("Corrupted cart data encountered; resetting.", err);
     state.cart = [];
   }
 }
 
-// ==========================================================================
-// 5. Event Listeners & Delegation
-// ==========================================================================
+// ── 8. FORM VALIDATION & CHECKOUT PROCESS ──
 
-function setupEventListeners() {
-  // Live Search Input Event
-  DOM.searchInput.addEventListener("input", (e) => {
-    state.search = e.target.value;
-    if (state.search.length > 0) {
-      DOM.clearSearchBtn.classList.remove("hidden");
-    } else {
-      DOM.clearSearchBtn.classList.add("hidden");
-    }
-    renderMenu();
-  });
-
-  // Clear Search Button Click
-  DOM.clearSearchBtn.addEventListener("click", () => {
-    state.search = "";
-    DOM.searchInput.value = "";
-    DOM.clearSearchBtn.classList.add("hidden");
-    renderMenu();
-  });
-
-  // Category Filter Pill Click Delegation
-  DOM.categoryPills.addEventListener("click", (e) => {
-    const pill = e.target.closest(".category-pill");
-    if (!pill) return;
-
-    // Update active pill UI
-    document.querySelectorAll(".category-pill").forEach(btn => btn.classList.remove("active"));
-    pill.classList.add("active");
-
-    // Update State & Re-render
-    state.category = pill.dataset.category;
-    renderMenu();
-  });
-
-  // Menu Grid Event Delegation (Add to Cart)
-  DOM.menuGrid.addEventListener("click", (e) => {
-    const addBtn = e.target.closest(".add-to-cart-btn");
-    if (addBtn) {
-      const dishId = Number(addBtn.dataset.id);
-      addToCart(dishId);
-    }
-  });
-
-  // Cart Items List Event Delegation (Qty adjustments & delete)
-  DOM.cartItems.addEventListener("click", (e) => {
-    const incBtn = e.target.closest(".inc-qty-btn");
-    const decBtn = e.target.closest(".dec-qty-btn");
-    const removeBtn = e.target.closest(".remove-btn");
-
-    if (incBtn) {
-      updateQuantity(Number(incBtn.dataset.id), 1);
-    } else if (decBtn) {
-      updateQuantity(Number(decBtn.dataset.id), -1);
-    } else if (removeBtn) {
-      removeFromCart(Number(removeBtn.dataset.id));
-    }
-  });
-
-  // Clear Entire Cart
-  DOM.clearCartBtn.addEventListener("click", () => {
-    if (confirm("Are you sure you want to clear your order?")) {
-      clearCart();
-    }
-  });
-
-  // Mobile Cart Toggle Button - Scrolls down to cart section on mobile
-  DOM.mobileCartBtn.addEventListener("click", () => {
-    DOM.cartAside.scrollIntoView({ behavior: "smooth" });
-  });
-
-  // Checkout Modal Triggers
-  DOM.checkoutBtn.addEventListener("click", openCheckoutModal);
-  DOM.closeModalBtn.addEventListener("click", () => DOM.checkoutModal.close());
-  DOM.cancelCheckoutBtn.addEventListener("click", () => DOM.checkoutModal.close());
-
-  // Form Validation & TeleBirr Order Submission
-  DOM.checkoutForm.addEventListener("submit", handleCheckoutSubmit);
-
-  // Success Modal Close
-  DOM.closeSuccessBtn.addEventListener("click", () => DOM.successModal.close());
+/**
+ * Validates checkout form data with regex and business rules
+ * Requirement: Returns empty string if valid, or clear error message string if invalid
+ */
+function validateCheckout({ name, phone, area, address }) {
+  if (state.cart.length === 0) {
+    return "Your cart is empty. Please add dishes before placing an order.";
+  }
+  if (!name || !name.trim()) {
+    return "Please enter your full name.";
+  }
+  if (!phone || !PHONE_REGEX.test(phone.trim())) {
+    return "Enter a valid Ethiopian phone number starting with 09 or 07 (e.g. 0911223344).";
+  }
+  if (!address || !address.trim()) {
+    return "Please specify your delivery address or building name.";
+  }
+  return ""; // All valid
 }
-
-// ==========================================================================
-// 6. TeleBirr Checkout & Validation Logic
-// ==========================================================================
 
 function openCheckoutModal() {
   if (state.cart.length === 0) return;
 
-  // Render Order Recap inside Modal
-  const total = computeCartTotal();
+  // Render modal order summary
+  const subtotal = computeCartTotal();
+  const delivery = subtotal >= FREE_DELIVERY_OVER ? 0 : DELIVERY_FEE;
+  const grandTotal = subtotal + delivery;
+
   DOM.modalOrderSummary.innerHTML = `
-    <h4>Order Summary (${state.cart.reduce((s, i) => s + i.qty, 0)} items)</h4>
-    <ul style="list-style: none; padding: 0.5rem 0; font-size: 0.85rem;">
-      ${state.cart.map(i => `<li>${i.name} × ${i.qty} — <strong>${i.price * i.qty} ETB</strong></li>`).join("")}
-    </ul>
-    <div style="text-align: right; border-top: 1px solid var(--border); padding-top: 0.4rem;">
-      <strong>Total: ${total} ETB</strong>
+    <div class="summary-box">
+      <h4>Order Recap (${state.cart.reduce((s, i) => s + i.qty, 0)} items)</h4>
+      <ul>
+        ${state.cart.map(i => `<li>${i.icon || "🍲"} ${i.name} × ${i.qty} — <strong>${i.price * i.qty} ETB</strong></li>`).join("")}
+      </ul>
+      <div class="summary-line"><span>Subtotal:</span> <span>${subtotal} ETB</span></div>
+      <div class="summary-line"><span>Delivery:</span> <span>${delivery === 0 ? "FREE" : delivery + " ETB"}</span></div>
+      <div class="summary-line grand"><span>Total Payable:</span> <span>${grandTotal} ETB</span></div>
     </div>
   `;
 
+  if (DOM.formError) {
+    DOM.formError.textContent = "";
+    DOM.formError.classList.add("hidden");
+  }
+
   DOM.checkoutModal.showModal();
+}
+
+function closeCheckoutModal() {
+  DOM.checkoutModal.close();
 }
 
 function handleCheckoutSubmit(e) {
@@ -413,69 +370,185 @@ function handleCheckoutSubmit(e) {
 
   const nameInput = document.getElementById("cust-name");
   const phoneInput = document.getElementById("cust-phone");
+  const areaSelect = document.getElementById("cust-area");
   const addressInput = document.getElementById("cust-address");
+  const notesInput = document.getElementById("cust-notes");
 
-  let isValid = true;
+  const formData = {
+    name: nameInput.value.trim(),
+    phone: phoneInput.value.trim(),
+    area: areaSelect.value,
+    address: addressInput.value.trim(),
+    notes: notesInput.value.trim()
+  };
 
-  // Validate Name
-  if (!nameInput.value.trim()) {
-    nameInput.classList.add("invalid");
-    isValid = false;
-  } else {
-    nameInput.classList.remove("invalid");
+  const errorMsg = validateCheckout(formData);
+
+  if (errorMsg) {
+    if (DOM.formError) {
+      DOM.formError.textContent = errorMsg;
+      DOM.formError.classList.remove("hidden");
+    }
+    return;
   }
 
-  // Validate TeleBirr Phone Number (09... or 07... with 8 digits = 10 total digits)
-  const phoneRegex = /^(09|07)\d{8}$/;
-  if (!phoneRegex.test(phoneInput.value.trim())) {
-    phoneInput.classList.add("invalid");
-    isValid = false;
-  } else {
-    phoneInput.classList.remove("invalid");
+  // Clear error
+  if (DOM.formError) {
+    DOM.formError.textContent = "";
+    DOM.formError.classList.add("hidden");
   }
 
-  // Validate Address
-  if (!addressInput.value.trim()) {
-    addressInput.classList.add("invalid");
-    isValid = false;
-  } else {
-    addressInput.classList.remove("invalid");
-  }
+  // Place Order
+  placeOrder(formData);
+}
 
-  if (!isValid) return;
+function placeOrder(customerData) {
+  const subtotal = computeCartTotal();
+  const deliveryFee = subtotal >= FREE_DELIVERY_OVER ? 0 : DELIVERY_FEE;
+  const grandTotal = subtotal + deliveryFee;
 
-  // Form valid! Process TeleBirr Order
-  const orderRef = "TB-" + Math.floor(100000 + Math.random() * 900000);
-  const totalAmount = computeCartTotal();
+  const order = {
+    orderId: "AE-" + Math.floor(100000 + Math.random() * 900000),
+    placedAt: new Date().toISOString(),
+    customer: customerData,
+    items: [...state.cart],
+    subtotal: subtotal,
+    deliveryFee: deliveryFee,
+    total: grandTotal,
+    paymentMethod: "TeleBirr Instant Payment"
+  };
 
-  // Populate Receipt
+  console.log("Order placed successfully:", order);
+
+  // Close form modal
+  closeCheckoutModal();
+
+  // Clear cart and state
+  clearCart();
+
+  // Show confirmation modal
+  showOrderConfirmation(order);
+}
+
+function showOrderConfirmation(order) {
+  if (!DOM.receiptDetails) return;
+
   DOM.receiptDetails.innerHTML = `
-    <p><strong>Order Ref:</strong> ${orderRef}</p>
-    <p><strong>Customer:</strong> ${nameInput.value.trim()}</p>
-    <p><strong>TeleBirr Account:</strong> ${phoneInput.value.trim()}</p>
-    <p><strong>Delivery Address:</strong> ${addressInput.value.trim()}</p>
-    <p><strong>Amount Billed:</strong> <span style="color: var(--primary); font-weight:800;">${totalAmount} ETB</span></p>
-    <p><small style="color: var(--accent); font-weight: 600;">✓ TeleBirr payment request dispatched to ${phoneInput.value.trim()}</small></p>
+    <div class="receipt-header">
+      <span class="receipt-id">Order ID: <strong>${order.orderId}</strong></span>
+      <span class="receipt-time">${new Date(order.placedAt).toLocaleTimeString()}</span>
+    </div>
+    <div class="receipt-body">
+      <p><strong>Customer:</strong> ${order.customer.name} (${order.customer.phone})</p>
+      <p><strong>Delivery Location:</strong> ${order.customer.area}, ${order.customer.address}</p>
+      <p><strong>Payment Status:</strong> TeleBirr Prompt Sent 📱</p>
+      <hr style="margin: 0.75rem 0; border: none; border-top: 1px dashed var(--border-color);" />
+      <div class="receipt-items">
+        ${order.items.map(item => `<div>${item.name} × ${item.qty} — ${item.price * item.qty} ETB</div>`).join("")}
+      </div>
+      <hr style="margin: 0.75rem 0; border: none; border-top: 1px dashed var(--border-color);" />
+      <div class="receipt-total">
+        <span>Grand Total Paid:</span>
+        <strong style="color: var(--accent-green); font-size: 1.1rem;">${order.total} ETB</strong>
+      </div>
+    </div>
   `;
 
-  // Close Checkout Modal & Open Success Modal
-  DOM.checkoutModal.close();
   DOM.successModal.showModal();
-
-  // Reset Cart State & Form
-  clearCart();
-  DOM.checkoutForm.reset();
 }
 
-// ==========================================================================
-// 7. Application Entry Point
-// ==========================================================================
+// ── 9. EVENT LISTENERS SETUP ──
 
-function init() {
-  loadCart();           // 1. Recover saved cart from LocalStorage
-  setupEventListeners(); // 2. Attach all UI event handlers
-  loadMenu();           // 3. Fetch menu JSON & render UI
+function setupEventListeners() {
+  // Live Search Input
+  DOM.searchInput.addEventListener("input", (e) => {
+    state.search = e.target.value;
+    DOM.clearSearchBtn.classList.toggle("hidden", state.search === "");
+    renderMenu();
+  });
+
+  // Clear Search Button
+  DOM.clearSearchBtn.addEventListener("click", () => {
+    state.search = "";
+    DOM.searchInput.value = "";
+    DOM.clearSearchBtn.classList.add("hidden");
+    renderMenu();
+  });
+
+  // Category Filter Pills Delegation
+  DOM.categoryPills.addEventListener("click", (e) => {
+    const pill = e.target.closest(".category-pill");
+    if (!pill) return;
+
+    document.querySelectorAll(".category-pill").forEach(p => p.classList.remove("active"));
+    pill.classList.add("active");
+
+    state.category = pill.dataset.category || "All";
+    renderMenu();
+  });
+
+  // Menu Grid Event Delegation (Add to cart)
+  DOM.menuGrid.addEventListener("click", (e) => {
+    const addBtn = e.target.closest(".add-to-cart-btn");
+    if (!addBtn) return;
+    const dishId = Number(addBtn.dataset.id);
+    addToCart(dishId);
+  });
+
+  // Cart Panel Delegation (Qty increase, decrease, remove)
+  DOM.cartItems.addEventListener("click", (e) => {
+    const incBtn = e.target.closest(".inc-qty-btn");
+    if (incBtn) {
+      updateQuantity(Number(incBtn.dataset.id), 1);
+      return;
+    }
+
+    const decBtn = e.target.closest(".dec-qty-btn");
+    if (decBtn) {
+      updateQuantity(Number(decBtn.dataset.id), -1);
+      return;
+    }
+
+    const rmBtn = e.target.closest(".remove-btn");
+    if (rmBtn) {
+      removeFromCart(Number(rmBtn.dataset.id));
+      return;
+    }
+  });
+
+  // Clear Cart Button
+  if (DOM.clearCartBtn) {
+    DOM.clearCartBtn.addEventListener("click", clearCart);
+  }
+
+  // Checkout Buttons & Modal Triggers
+  if (DOM.checkoutBtn) {
+    DOM.checkoutBtn.addEventListener("click", openCheckoutModal);
+  }
+
+  if (DOM.closeModalBtn) {
+    DOM.closeModalBtn.addEventListener("click", closeCheckoutModal);
+  }
+
+  if (DOM.cancelCheckoutBtn) {
+    DOM.cancelCheckoutBtn.addEventListener("click", closeCheckoutModal);
+  }
+
+  if (DOM.checkoutForm) {
+    DOM.checkoutForm.addEventListener("submit", handleCheckoutSubmit);
+  }
+
+  if (DOM.closeSuccessBtn) {
+    DOM.closeSuccessBtn.addEventListener("click", () => DOM.successModal.close());
+  }
 }
 
-// Boot application when DOM is ready
+// ── 10. INITIALIZATION ──
+
+async function init() {
+  loadCart();             // 1. Restore saved cart from localStorage
+  setupEventListeners();  // 2. Attach DOM event listeners
+  await loadMenu();       // 3. Fetch menu JSON data and render UI
+}
+
 document.addEventListener("DOMContentLoaded", init);
