@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Birr Watch · ETB Exchange Rate Tracker</title>
+  <meta name="description" content="A live Ethiopian Birr (ETB) exchange-rate tracker, currency converter, and watchlist powered by real-time API data." />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="brand">
+        <span class="flag-icon" title="Ethiopia">🇪🇹</span>
+        <div>
+          <h1>Birr Watch</h1>
+          <p class="subtitle">Live ETB Exchange Rate Tracker</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button id="refresh-btn" class="btn-icon" title="Refresh Live Rates">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+          Refresh
+        </button>
+      </div>
+    </header>
+
+    <!-- Status Message Container -->
+    <div id="status" class="status-box">Loading rates...</div>
+
+    <main class="main-content">
+      <!-- Convert Card -->
+      <section class="card convert-card">
+        <div class="card-header">
+          <h2>Currency Converter</h2>
+          <span class="base-badge">Base: <strong>ETB</strong></span>
+        </div>
+
+        <form id="convert-form" class="convert-form" novalidate>
+          <div class="input-grid">
+            <div class="field-group">
+              <label for="amount">Amount in Birr (ETB)</label>
+              <div class="input-wrapper">
+                <span class="input-prefix">ETB</span>
+                <input id="amount" type="number" step="any" min="0" value="100" placeholder="100" required />
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label for="currency">Target Currency</label>
+              <select id="currency">
+                <!-- Populated dynamically from API state -->
+              </select>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" id="convert-btn" class="btn btn-primary">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="8 21 3 21 3 16"/><line x1="20" y1="4" x2="3" y2="21"/></svg>
+              Convert
+            </button>
+            <button type="button" id="watch" class="btn btn-secondary">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+              + Add to Watchlist
+            </button>
+          </div>
+        </form>
+
+        <!-- Result Container -->
+        <div id="result" class="result-box"></div>
+      </section>
+
+      <!-- Watchlist Card -->
+      <section class="card watchlist-card">
+        <div class="card-header">
+          <div>
+            <h2>My Watchlist</h2>
+            <p class="section-desc">Tracked exchange rates saved locally in browser</p>
+          </div>
+          <span id="watchlist-count" class="badge">0 items</span>
+        </div>
+
+        <ul id="watchlist" class="watchlist-grid">
+          <!-- Populated dynamically from state -->
+        </ul>
+      </section>
+    </main>
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <p>Data provided by <a href="https://open.er-api.com/" target="_blank" rel="noopener">ExchangeRate-API</a> · CodeOps Module 2 Day 22 Project</p>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
