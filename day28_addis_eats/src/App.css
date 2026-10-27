@@ -1,0 +1,140 @@
+/* ─── Reset & base ─────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: "Segoe UI", system-ui, sans-serif;
+  background: #fdf6ec;
+  color: #2d2d2d;
+  min-height: 100vh;
+}
+
+/* ─── App shell ────────────────────────────────────────────────── */
+.app { display: flex; flex-direction: column; min-height: 100vh; }
+
+/* ─── Header ───────────────────────────────────────────────────── */
+.header { background: #b84a2e; color: #fff; padding: 2rem 1.5rem; text-align: center; }
+.header h1 { font-size: 2.4rem; letter-spacing: 0.02em; }
+.header p  { margin-top: 0.4rem; font-size: 1.05rem; opacity: 0.88; }
+
+/* ─── Menu section ─────────────────────────────────────────────── */
+.menu-section { max-width: 960px; margin: 0 auto; width: 100%; padding: 0 1.5rem; }
+
+/* ─── CategoryBar ──────────────────────────────────────────────── */
+.category-nav { display: flex; gap: 0.6rem; flex-wrap: wrap; padding: 1.5rem 0 1rem; }
+
+.cat-btn {
+  padding: 0.4rem 1.1rem;
+  border: 2px solid #b84a2e;
+  border-radius: 999px;
+  background: transparent;
+  color: #b84a2e;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.cat-btn:hover  { background: #f5ddd5; }
+.cat-btn.active { background: #b84a2e; color: #fff; }
+
+/* ─── Dish grid ────────────────────────────────────────────────── */
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.25rem;
+  padding-bottom: 1.5rem;
+}
+
+.empty-state { color: #888; font-style: italic; padding: 2rem 0; text-align: center; }
+
+/* ─── Card ─────────────────────────────────────────────────────── */
+.card {
+  background: #fff;
+  border: 1px solid #e8c9a0;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+  transition: transform 0.15s, box-shadow 0.15s;
+  overflow: hidden;
+}
+.card:hover { transform: translateY(-3px); box-shadow: 0 6px 16px rgba(0,0,0,0.1); }
+
+/* ─── Dish ─────────────────────────────────────────────────────── */
+.dish { padding: 1.25rem 1.5rem; }
+
+.dish h3 {
+  font-size: 1.05rem;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.4rem;
+}
+
+.badge-spicy {
+  font-size: 0.72rem; background: #ffe4d6; color: #b84a2e;
+  border-radius: 999px; padding: 0.1rem 0.5rem; font-weight: 700;
+}
+
+/* Ex 1 — count badge */
+.badge-count {
+  font-size: 0.72rem; background: #b84a2e; color: #fff;
+  border-radius: 999px; padding: 0.1rem 0.5rem; font-weight: 700; margin-left: auto;
+}
+
+.dish-description { font-size: 0.84rem; color: #666; line-height: 1.5; margin-bottom: 0.75rem; }
+
+.dish-footer { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; margin-top: 0.5rem; }
+
+.dish-price { font-weight: 700; font-size: 1rem; color: #b84a2e; }
+
+/* Ex 1 — Add button */
+.btn-add {
+  padding: 0.3rem 0.9rem; background: #b84a2e; color: #fff;
+  border: none; border-radius: 6px; font-size: 0.85rem;
+  font-weight: 600; cursor: pointer; transition: background 0.15s;
+}
+.btn-add:hover { background: #9a3d24; }
+
+/* ─── Order total (Ex 5) ───────────────────────────────────────── */
+.order-total {
+  max-width: 960px; margin: 0 auto 1.5rem; width: 100%;
+  padding: 1rem 1.5rem; background: #fff;
+  border: 2px solid #b84a2e; border-radius: 10px;
+  display: flex; justify-content: space-between; align-items: center; font-size: 1.1rem;
+}
+.order-total strong { font-size: 1.3rem; color: #b84a2e; }
+
+/* ─── Delivery Form (Ex 6–7) ───────────────────────────────────── */
+.form-card {
+  max-width: 960px; margin: 0 auto 2rem; width: 100%;
+  padding: 1.5rem; background: #fff;
+  border: 1px solid #e8c9a0; border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+  display: flex; flex-direction: column; gap: 1rem;
+}
+.form-card h2 { font-size: 1.25rem; color: #b84a2e; }
+
+.form-label { display: flex; flex-direction: column; gap: 0.35rem; font-size: 0.9rem; font-weight: 600; color: #444; }
+
+.form-input {
+  padding: 0.55rem 0.85rem; border: 1.5px solid #ccc;
+  border-radius: 7px; font-size: 0.95rem; outline: none; transition: border-color 0.15s;
+}
+.form-input:focus { border-color: #b84a2e; }
+
+/* Ex 7 — error styles */
+.input-error { border-color: #d32f2f !important; background: #fff5f5; }
+.error-hint  { font-size: 0.78rem; color: #d32f2f; font-weight: 400; }
+
+/* Ex 7 — disabled submit */
+.btn-submit {
+  padding: 0.65rem; background: #b84a2e; color: #fff;
+  border: none; border-radius: 8px; font-size: 1rem;
+  font-weight: 700; cursor: pointer; transition: background 0.15s, opacity 0.15s;
+}
+.btn-submit:hover:not(:disabled) { background: #9a3d24; }
+.btn-submit:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.form-success { background: #f0fdf4; border-color: #86efac; color: #166534; font-size: 1rem; line-height: 1.7; }
+
+/* ─── Footer ───────────────────────────────────────────────────── */
+.footer { margin-top: auto; background: #2d2d2d; color: #aaa; text-align: center; padding: 1rem; font-size: 0.82rem; }
