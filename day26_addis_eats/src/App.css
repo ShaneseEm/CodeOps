@@ -1,0 +1,101 @@
+/* ─── Reset & base ─────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: "Segoe UI", system-ui, sans-serif;
+  background: #fdf6ec;
+  color: #2d2d2d;
+  min-height: 100vh;
+}
+
+/* ─── App shell ────────────────────────────────────────────────── */
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ─── Header ───────────────────────────────────────────────────── */
+.header {
+  background: #b84a2e;
+  color: #fff;
+  padding: 2rem 1.5rem;
+  text-align: center;
+}
+
+.header h1 {
+  font-size: 2.4rem;
+  letter-spacing: 0.02em;
+}
+
+.header p {
+  margin-top: 0.4rem;
+  font-size: 1.05rem;
+  opacity: 0.88;
+}
+
+/* ─── Menu section ─────────────────────────────────────────────── */
+.menu {
+  padding: 2rem 1.5rem;
+  max-width: 960px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.menu h2 {
+  font-size: 1.6rem;
+  margin-bottom: 1.5rem;
+  color: #b84a2e;
+  border-bottom: 2px solid #e8c9a0;
+  padding-bottom: 0.5rem;
+}
+
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.25rem;
+}
+
+/* ─── Dish card ────────────────────────────────────────────────── */
+.dish {
+  background: #fff;
+  border: 1px solid #e8c9a0;
+  border-radius: 10px;
+  padding: 1.25rem 1.5rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.dish:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+.dish h3 {
+  font-size: 1.15rem;
+  color: #2d2d2d;
+  margin-bottom: 0.4rem;
+}
+
+.dish-description {
+  font-size: 0.88rem;
+  color: #666;
+  line-height: 1.5;
+  margin-bottom: 0.75rem;
+}
+
+.dish-price {
+  font-weight: 700;
+  font-size: 1rem;
+  color: #b84a2e;
+}
+
+/* ─── Footer ───────────────────────────────────────────────────── */
+.footer {
+  margin-top: auto;
+  background: #2d2d2d;
+  color: #aaa;
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.82rem;
+}
