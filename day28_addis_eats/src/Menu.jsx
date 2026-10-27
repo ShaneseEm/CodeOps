@@ -1,17 +1,16 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
-import Dish from "./Dish";
-import Card from "./Card";
+import { dishes } from "./data";
 import CategoryBar from "./CategoryBar";
+import DishList from "./DishList";
 
-const CATEGORIES = ["All", "Main", "Breakfast", "Drinks"];
+const CATEGORIES = ["All", "Main", "Vegan", "Grill"];
 
-function Menu({ dishes, onAddDish }) {
-  // Ex 2 — category state lives in Menu
-  // Ex 3 — passed down to CategoryBar
+export default function Menu({ onAddDish }) {
+  // Menu owns the category state
   const [category, setCategory] = useState("All");
 
-  // Ex 4 — filter from category state; empty state from Day 27 preserved
+  // Derive filtered list from state
   const shown =
     category === "All"
       ? dishes
@@ -24,31 +23,11 @@ function Menu({ dishes, onAddDish }) {
         selected={category}
         onSelect={setCategory}
       />
-
-      {shown.length === 0 ? (
-        <p className="empty-state">No {category} dishes found.</p>
-      ) : (
-        <div className="menu-grid">
-          {shown.map((dish) => (
-            <Card key={dish.id}>
-              <Dish
-                name={dish.name}
-                price={dish.price}
-                spicy={dish.spicy}
-                description={dish.description}
-                onAdd={onAddDish}
-              />
-            </Card>
-          ))}
-        </div>
-      )}
+      <DishList dishes={shown} onAddDish={onAddDish} />
     </section>
   );
 }
 
 Menu.propTypes = {
-  dishes:    PropTypes.array.isRequired,
   onAddDish: PropTypes.func.isRequired,
 };
-
-export default Menu;

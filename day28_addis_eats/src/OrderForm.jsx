@@ -1,24 +1,34 @@
 import { useState } from "react";
 
-// TeleBirr: Ethiopian format 09XXXXXXXX — 10 digits starting with 09
-const TELEBIRR_RE = /^09\d{8}$/;
+// TeleBirr numbers: accept 09XXXXXXXX (10 digits) or +2519XXXXXXXX (13 chars)
+const TELEBIRR_RE = /^(09\d{8}|\+2519\d{8})$/;
 
-// Ex 6 — controlled form, single state object, one change handler
-// Ex 7 — TeleBirr validation, submit disabled until valid
-function DeliveryForm() {
-  const [form, setForm] = useState({ name: "", phone: "", area: "" });
+export default function OrderForm() {
+  // Controlled form with name, phone and area in ONE state object
+  const [form, setForm] = useState({
+    name: "",
+    phone: "",
+    area: "",
+  });
+
   const [submitted, setSubmitted] = useState(false);
 
+  // Copy form object with spread operator: { ...prev, [name]: value }
   function handleChange(e) {
     const { name, value } = e.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
+    setForm((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   }
 
-  const phoneValid = TELEBIRR_RE.test(form.phone);
+  // Live validation of TeleBirr number
+  const phoneValid = TELEBIRR_RE.test(form.phone.trim());
   const canSubmit  = form.name.trim() !== "" && phoneValid && form.area.trim() !== "";
 
   function handleSubmit(e) {
     e.preventDefault();
+    if (!canSubmit) return;
     setSubmitted(true);
   }
 
@@ -26,7 +36,8 @@ function DeliveryForm() {
     return (
       <div className="form-card form-success">
         <p>✅ Order placed for <strong>{form.name}</strong>!</p>
-        <p>We'll call <strong>{form.phone}</strong> when your delivery is near.</p>
+        <p>Delivery Area: <strong>{form.area}</strong></p>
+        <p>We will call <strong>{form.phone}</strong> when your order is on its way.</p>
       </div>
     );
   }
@@ -55,11 +66,13 @@ function DeliveryForm() {
           name="phone"
           value={form.phone}
           onChange={handleChange}
-          placeholder="09XXXXXXXX"
-          maxLength={10}
+          placeholder="09XXXXXXXX or +2519XXXXXXXX"
+          maxLength={13}
         />
         {form.phone && !phoneValid && (
-          <span className="error-hint">Enter a valid TeleBirr number (09XXXXXXXX)</span>
+          <span className="error-hint">
+            Must be 09XXXXXXXX (10 digits) or +2519XXXXXXXX (e.g. 0911223344 or +251911223344)
+          </span>
         )}
       </label>
 
@@ -81,5 +94,3 @@ function DeliveryForm() {
     </form>
   );
 }
-
-export default DeliveryForm;

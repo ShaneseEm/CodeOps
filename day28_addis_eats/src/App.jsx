@@ -1,12 +1,11 @@
 import { useState } from "react";
 import Header from "./Header";
 import Menu from "./Menu";
-import DeliveryForm from "./DeliveryForm";
-import menu from "./data";
+import OrderForm from "./OrderForm";
 import "./App.css";
 
 function App() {
-  // Ex 5 — running order total in state
+  // An order total held in state, updated from click handler and displayed in ETB
   const [orderTotal, setOrderTotal] = useState(0);
 
   function handleAddDish(price) {
@@ -18,21 +17,21 @@ function App() {
       <Header />
 
       <main>
-        {/* Ex 2-4 — Menu owns category state; CategoryBar inside Menu */}
-        <Menu dishes={menu} onAddDish={handleAddDish} />
+        {/* Menu component owns category state & renders CategoryBar + DishList */}
+        <Menu onAddDish={handleAddDish} />
 
-        {/* Ex 5 — running total displayed below the menu */}
+        {/* Order total displayed in ETB below the menu */}
         <div className="order-total">
           <span>Order Total</span>
           <strong>{orderTotal} ETB</strong>
         </div>
 
-        {/* Ex 6-7 — controlled delivery form with TeleBirr validation */}
-        <DeliveryForm />
+        {/* Controlled OrderForm with TeleBirr live validation */}
+        <OrderForm />
       </main>
 
       <footer className="footer">
-        <p>© 2026 Addis Eats · React + Vite · Module 3 Day 28</p>
+        <p>© 2026 Addis Eats · Interactive Menu · Module 3 Day 28 Mini-Project</p>
       </footer>
     </div>
   );

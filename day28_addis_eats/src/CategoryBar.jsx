@@ -1,12 +1,12 @@
 import PropTypes from "prop-types";
 
-// Ex 3 — CategoryBar receives selected + onSelect (state lifted from Menu)
 function CategoryBar({ categories, selected, onSelect }) {
   return (
     <nav className="category-nav">
       {categories.map((cat) => (
         <button
           key={cat}
+          type="button"
           className={`cat-btn${cat === selected ? " active" : ""}`}
           onClick={() => onSelect(cat)}
         >

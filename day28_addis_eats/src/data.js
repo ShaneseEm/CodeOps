@@ -1,13 +1,12 @@
-// src/data.js — Addis Eats menu data
-const menu = [
-  { id: 1, name: "Doro Wat",  price: 240, category: "Main",      spicy: true,  description: "Spicy Ethiopian chicken stew with boiled egg." },
-  { id: 2, name: "Shiro",     price: 120, category: "Main",      spicy: false, description: "Smooth chickpea flour stew, a daily staple." },
-  { id: 3, name: "Tibs",      price: 280, category: "Main",      spicy: false, description: "Sautéed beef with vegetables and spices." },
-  { id: 4, name: "Kitfo",     price: 320, category: "Main",      spicy: true,  description: "Minced beef seasoned with mitmita and kibbe." },
-  { id: 5, name: "Ful",       price:  80, category: "Breakfast", spicy: false, description: "Spiced fava beans — a classic Addis breakfast." },
-  { id: 6, name: "Firfir",    price:  90, category: "Breakfast", spicy: true,  description: "Shredded injera cooked in berbere sauce." },
-  { id: 7, name: "Macchiato", price:  45, category: "Drinks",    spicy: false, description: "Strong Ethiopian espresso with a splash of milk." },
-  { id: 8, name: "Tej",       price:  60, category: "Drinks",    spicy: false, description: "Traditional Ethiopian honey wine." },
+export const dishes = [
+  { id: 1, name: "Doro Wat",  price: 240, category: "Main",   spicy: true,  description: "Spicy Ethiopian chicken stew with boiled egg." },
+  { id: 2, name: "Shiro",     price: 120, category: "Vegan",  spicy: false, description: "Smooth spiced chickpea stew, a fasting staple." },
+  { id: 3, name: "Tibs",      price: 280, category: "Grill",  spicy: false, description: "Sautéed beef or lamb with rosemary and onions." },
+  { id: 4, name: "Kitfo",     price: 320, category: "Grill",  spicy: true,  description: "Lean minced beef seasoned with mitmita and niter kibbeh." },
+  { id: 5, name: "Gomen",     price: 110, category: "Vegan",  spicy: false, description: "Collard greens gently simmered with garlic and ginger." },
+  { id: 6, name: "Misir Wat", price: 130, category: "Vegan",  spicy: true,  description: "Red split lentils simmered in rich berbere sauce." },
+  { id: 7, name: "Zilzil Tibs", price: 300, category: "Grill", spicy: false, description: "Tender strips of grilled beef ribeye." },
+  { id: 8, name: "Derek Tibs", price: 290, category: "Grill",  spicy: true,  description: "Crispy pan-fried beef chunks with awaze dip." }
 ];
 
-export default menu;
+export default dishes;
