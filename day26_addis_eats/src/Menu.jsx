@@ -1,30 +1,54 @@
+import PropTypes from "prop-types";
 import Dish from "./Dish";
+import Card from "./Card";
 
-const menu = [
-  { id: 1, name: "Doro Wat",  price: 240, description: "Spicy Ethiopian chicken stew with boiled egg." },
-  { id: 2, name: "Shiro",     price: 120, description: "Smooth chickpea flour stew, a daily staple." },
-  { id: 3, name: "Tibs",      price: 280, description: "Sautéed beef or lamb with vegetables and spices." },
-  { id: 4, name: "Injera",    price:  40, description: "Spongy sourdough flatbread — the base of every meal." },
-  { id: 5, name: "Kitfo",     price: 320, description: "Minced beef seasoned with mitmita and kibbe." },
-  { id: 6, name: "Ful",       price:  80, description: "Spiced fava beans — a classic Addis breakfast." },
-];
+function Menu({ dishes, category }) {
+  // 1. filter by category (if "All" show everything)
+  const shown =
+    category === "All"
+      ? dishes
+      : dishes.filter((d) => d.category === category);
 
-function Menu() {
+  // 2. early return — empty state when no dishes match
+  if (shown.length === 0) {
+    return (
+      <section className="menu">
+        <p className="empty-state">No {category} dishes found.</p>
+      </section>
+    );
+  }
+
+  // 3. render filtered list — keyed by stable id, not index
   return (
     <section className="menu">
-      <h2>Our Menu</h2>
       <div className="menu-grid">
-        {menu.map((dish) => (
-          <Dish
-            key={dish.id}
-            name={dish.name}
-            price={dish.price}
-            description={dish.description}
-          />
+        {shown.map((dish) => (
+          <Card key={dish.id}>
+            <Dish
+              name={dish.name}
+              price={dish.price}
+              spicy={dish.spicy}
+              description={dish.description}
+            />
+          </Card>
         ))}
       </div>
     </section>
   );
 }
+
+Menu.propTypes = {
+  dishes:   PropTypes.arrayOf(
+    PropTypes.shape({
+      id:          PropTypes.number.isRequired,
+      name:        PropTypes.string.isRequired,
+      price:       PropTypes.number.isRequired,
+      category:    PropTypes.string.isRequired,
+      spicy:       PropTypes.bool,
+      description: PropTypes.string,
+    })
+  ).isRequired,
+  category: PropTypes.string.isRequired,
+};
 
 export default Menu;
