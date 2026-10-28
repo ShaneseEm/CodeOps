@@ -28,7 +28,7 @@
 > **Copy & paste this section directly into your Moodle "Online text" submission box for Day 4 Exercise!**
 
 ```markdown
-GitHub Repository: https://github.com/ShaneseEm/IBT/tree/main/day29_addis_eats
+GitHub Repository: https://github.com/ShaneseEm/CodeOps/tree/main/day29_addis_eats
 
 ### Exercise Solutions & Explanations:
 
