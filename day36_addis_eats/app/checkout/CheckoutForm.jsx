@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useActionState, useEffect } from "react";
+import React, { useEffect, useTransition } from "react";
+import { useFormState } from "react-dom";
 import { placeOrder } from "../actions/orderActions";
 import { useCart } from "../context/CartContext";
 
@@ -18,7 +19,14 @@ const initialState = {
  */
 export default function CheckoutForm() {
   const { cart, clearCart, totalPrice } = useCart();
-  const [state, formAction, isPending] = useActionState(placeOrder, initialState);
+  const [isPending, startTransition] = useTransition();
+  const [state, rawFormAction] = useFormState(placeOrder, initialState);
+
+  const formAction = (formData) => {
+    startTransition(() => {
+      rawFormAction(formData);
+    });
+  };
 
   useEffect(() => {
     if (state.success) {

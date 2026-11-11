@@ -1,0 +1,17 @@
+{
+  "name": "addis-eats-foundation-project",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Our Addis Eats Next.js Foundation Project - IBT College Canada CodeOps",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "next": "^14.2.23",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  }
+}

@@ -2,7 +2,7 @@ import Link from "next/link";
 import fs from "fs";
 import path from "path";
 import { notFound } from "next/navigation";
-import AddToCartButton from "../../../components/AddToCartButton";
+import AddToCartButton from "../../components/AddToCartButton";
 
 export async function generateStaticParams() {
   const filePath = path.join(process.cwd(), "public", "dishes.json");

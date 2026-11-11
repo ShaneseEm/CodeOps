@@ -1,4 +1,4 @@
-import DishCard from "./DishCard";
+import DishCard from "../components/DishCard";
 import fs from "fs";
 import path from "path";
 
