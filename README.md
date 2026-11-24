@@ -6,6 +6,15 @@ Welcome to the **CodeOps Full Stack Development** portfolio repository for **Add
 
 ## 🧭 Quick Navigation Links
 
+### 🏆 Day 20 / Day 45: Next.js Advanced Project (Week 9 Capstone)
+- 🚀 **[Next.js Advanced Project](Day20/advanced-project)** — Unified culmination of Week 9: 3-layer security defense, 3 attacks verified live, SWR polled status seeded with `fallbackData`, debounced search, performance budget (48 → 98), 1200×630 OpenGraph cards, and full metadata.
+- 🛡️ **[AUTH.md](Day20/advanced-project/AUTH.md)** — Decision 1: Who may see what, what each layer proves, and the three attacks stopped live.
+- 📡 **[DATA.md](Day20/advanced-project/DATA.md)** — Decision 2: Where data is fetched, SWR keys, refresh rules, and zero-spinner server seeding.
+- ⚡ **[PERF.md](Day20/advanced-project/PERF.md)** — Decision 3: Performance budget with both columns filled and technical causes.
+- 🌐 **[Live Deployed URL](https://code-ops-ten.vercel.app)** — Verified production deployment on Vercel.
+
+---
+
 ### 🔍 Day 19: SEO, OpenGraph & Structured Data (Making Addis Eats Findable)
 - 📝 **[Day 19 Exercises (1–7)](Day19/exercises)** — `metadataBase` resolution, `%s | Addis Eats` title template, human-crafted descriptions, dynamic `generateMetadata`, 1200×630 `ImageResponse` social cards, Schema.org `MenuItem` JSON-LD, dynamic `app/sitemap.js`, and `app/robots.js` crawler policies.
 - 🚀 **[Day 19 Mini-Project (Making Addis Eats Findable)](Day19/mini-project)** — Interactive Findability Application (`App.jsx`), Live `<head>` Source Inspector, Social Preview Debugger, Google Rich Results Validator, and comprehensive audit report (`SEO.md`).
@@ -35,30 +44,16 @@ Welcome to the **CodeOps Full Stack Development** portfolio repository for **Add
 
 ---
 
-## 📊 Summary of Day 19 Findability & Metadata Compliance
+## 📊 Summary of Day 20 Capstone Performance & Security Audit
 
-| Findability Criterion | Verification Standard | Implementation Status | Audit Result |
-|---|---|:---:|:---:|
-| **Root `metadataBase`** | Production URL (`https://addiseats.et`) prefixes all assets | Verified in `app/layout.js` | 🟢 **PASS** |
-| **Title Template** | `%s \| Addis Eats` with fallback default | Verified in `app/layout.js` | 🟢 **PASS** |
-| **Human Descriptions** | Unique, human-written copy on all static routes | 150–165 chars per route | 🟢 **PASS** |
-| **Dynamic `generateMetadata`** | Derived from live dish record (name, ETB price, summary) | Verified on `/menu/[id]` | 🟢 **PASS** |
-| **OpenGraph Image (1200×630)** | Site-wide and dynamic per-dish via `ImageResponse` | 1200 × 630 px PNGs | 🟢 **PASS** |
-| **Schema.org `MenuItem` JSON-LD** | Exact match of name, description, and ETB price | 100% price & currency match | 🟢 **PASS** |
-| **Dynamic `app/sitemap.js`** | Exposes core & dish routes; excludes `/cart` & `/checkout` | 0 private routes exposed | 🟢 **PASS** |
-| **`app/robots.js` Crawler Rules** | Disallows `/cart`, `/checkout`, `/api/*`; points to sitemap | Compliant crawler directives | 🟢 **PASS** |
-| **Canonical URL Protection** | Query params (`?category=...`) consolidate to `/menu` | Prevents duplicate penalties | 🟢 **PASS** |
-| **Single `<h1>` Tag per Page** | Exactly one descriptive `<h1>` element per route | Verified across all pages | 🟢 **PASS** |
-
----
-
-## ⚡ Summary of Day 18 Performance Gains
-
-| Core Web Vital | Baseline (Before) | Optimized (After) | Recorded Gain | Rating |
+| Milestone / Metric | Baseline (Before) | Optimized (After) | Recorded Gain | Assessment Status |
 |---|:---:|:---:|:---:|:---:|
-| **Lighthouse Performance Score** | **48 / 100** | **98 / 100** | **+50 Points** | 🟢 **PASS** |
-| **Largest Contentful Paint (LCP)** | **4.35 s** | **1.12 s** | **-74.3%** | 🟢 **GOOD** |
-| **Cumulative Layout Shift (CLS)** | **0.285** | **0.001** | **-99.6%** | 🟢 **GOOD** |
-| **Interaction to Next Paint (INP)** | **280 ms** | **52 ms** | **-81.4%** | 🟢 **GOOD** |
-| **Total Blocking Time (TBT)** | **490 ms** | **35 ms** | **-92.8%** | 🟢 **GOOD** |
-| **Total Transfer Payload** | **8.42 MB** | **684 KB** | **-91.9%** | 🟢 **LEAN** |
+| **Lighthouse Performance Score** | **48 / 100** | **98 / 100** | **+50 Points** | 🟢 **PASS (Grade A)** |
+| **Largest Contentful Paint (LCP)** | **4.35 s** | **1.12 s** | **-74.3%** | 🟢 **PASS (&lt; 2.5s)** |
+| **Cumulative Layout Shift (CLS)** | **0.285** | **0.001** | **-99.6%** | 🟢 **PASS (&lt; 0.1)** |
+| **First Load JS, `/menu`** | **284 kB** | **88 kB** | **-69.0%** | 🟢 **PASS (&lt; 120 kB)** |
+| **Largest Image Payload** | **3,200 kB** | **112 kB** | **-96.5%** | 🟢 **PASS (&lt; 150 kB)** |
+| **Three Security Attacks** | Vulnerable | 100% Blocked | Verified Line Stops | 🟢 **PASS (3/3 Stopped)** |
+| **Server Seeding (`fallbackData`)** | Loading Spinner | Instant First Paint | 0s Delay on Arrival | 🟢 **PASS** |
+| **Debounced Search** | 5 req / word | 1 req / pause | 300ms Buffer | 🟢 **PASS** |
+| **Metadata & 1200×630 Cards** | Blue Text | Rich Social Card | Absolute OG URLs | 🟢 **PASS** |
