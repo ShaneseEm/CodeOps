@@ -2,9 +2,25 @@ import { Suspense } from "react";
 import DishList from "./DishList";
 import FilterShell from "../components/FilterShell";
 
+/**
+ * Exercise 2 & Mini-Project Static Route Metadata:
+ * - Distinct, human-readable title and description written for people
+ * - Canonical URL points to /menu regardless of query parameters (?category=Vegan, ?spicy=true)
+ *   preventing duplicate content penalties across filtered views.
+ */
 export const metadata = {
-  title: "Addis Eats - Authentic Ethiopian Menu",
-  description: "Browse authentic Ethiopian delicacies pre-rendered as Server Components.",
+  title: "Full Menu & Traditional Specialties",
+  description:
+    "Explore our complete Addis Ababa menu of authentic slow-simmered wots, sizzling clay pot tibs, and vegan beyaynetu fasting platters. Filter by category and spice level.",
+  alternates: {
+    canonical: "/menu",
+  },
+  openGraph: {
+    title: "Full Menu & Traditional Specialties | Addis Eats",
+    description:
+      "Explore our complete Addis Ababa menu of authentic slow-simmered wots, sizzling clay pot tibs, and vegan fasting platters.",
+    url: "/menu",
+  },
 };
 
 const CATEGORIES = [
@@ -40,9 +56,9 @@ export default async function MenuPage() {
   return (
     <div className="menu-page">
       <div className="menu-header">
-        <h1>Traditional Ethiopian Menu</h1>
+        <h1>Traditional Ethiopian Menu & Daily Specials</h1>
         <p className="subtitle">
-          Served with fresh sourdough injera and authentic spice blends.
+          Served fresh daily with authentic sourdough teff injera and hand-crafted spice blends.
         </p>
       </div>
 

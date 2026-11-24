@@ -1,14 +1,30 @@
 import Link from "next/link";
 import NavigationButton from "./NavigationButton";
 
+export const metadata = {
+  title: "Home - Authentic Ethiopian Cuisine & Delivery",
+  description:
+    "Taste traditional Ethiopian flavors in Addis Ababa. Explore our fresh breakfast, lunch, and dinner menus crafted with heritage spices, slow-simmered wots, and warm teff injera.",
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: "Addis Eats - Authentic Ethiopian Cuisine & Fast Delivery",
+    description:
+      "Taste traditional Ethiopian flavors in Addis Ababa. Explore our fresh breakfast, lunch, and dinner menus crafted with heritage spices and warm injera.",
+    url: "/",
+  },
+};
+
 export default function HomePage() {
   return (
     <div className="home-container">
       <section className="hero-box">
-        <h1>Welcome to Addis Eats on Next.js</h1>
+        <h1>Addis Eats: Authentic Ethiopian Cuisine & Fast Delivery</h1>
         <p>
-          Experience the power of Next.js App Router: file-system routing,
-          colocated components, nested layouts, and server-side loading states.
+          Experience traditional Ethiopian culinary heritage in Addis Ababa.
+          Explore our signature slow-simmered wots, sizzling clay pot tibs,
+          and vibrant vegan beyaynetu fasting platters.
         </p>
 
         <div className="hero-buttons">
@@ -25,7 +41,7 @@ export default function HomePage() {
 
       <section className="features-grid">
         <div className="feature-card">
-          <span className="feat-icon">📁</span>
+          <span className="feat-icon">🍲</span>
           <h3>File-System Routing</h3>
           <p>Every folder with a <code>page.js</code> creates a clean, predictable URL route.</p>
         </div>

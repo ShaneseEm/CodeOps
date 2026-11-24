@@ -1,6 +1,16 @@
 import { cookies } from "next/headers";
 import CheckoutForm from "./CheckoutForm";
 
+export const metadata = {
+  title: "Secure Checkout & Payment",
+  description:
+    "Finalize your Addis Eats order with instant Telebirr or CBE Birr payment. Fast, reliable, and secure contactless food delivery to any sub-city in Addis Ababa.",
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
+
 /**
  * Checkout Page - Dynamic Server Component
  * Reads cookies (forces dynamic SSR) for session verification.
@@ -13,9 +23,10 @@ export default function CheckoutPage() {
 
   return (
     <div className="checkout-wrapper">
+      <h1 className="checkout-heading">Complete Your Addis Eats Order</h1>
       {!sessionUserId && (
         <div className="session-notice">
-          <span>⚡ Dynamic SSR active — reading session cookies server-side.</span>
+          <span>🔒 Guest checkout active — encrypted server-side processing.</span>
         </div>
       )}
       <CheckoutForm />
